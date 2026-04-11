@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RecyclaSLP — Recicla, Gana, Transforma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde: #2d6a4f;
+  --verde-claro: #52b788;
+  --verde-lima: #95d5b2;
+  --tierra: #d4a853;
+  --tierra-claro: #f4d58d;
+  --crema: #faf7f0;
+  --oscuro: #1a2e1f;
+  --texto: #2c3e2d;
+  --gris: #6b7c6e;
+  --blanco: #ffffff;
+  --sombra: 0 4px 30px rgba(45,106,79,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--crema);
+  color: var(--texto);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(250,247,240,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(82,183,136,0.2);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all .3s;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--verde);
+  display: flex; align-items: center; gap: .5rem;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--tierra); }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a {
+  text-decoration: none; color: var(--texto); font-size: .9rem; font-weight: 500;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--verde-claro); }
+.nav-btns { display: flex; gap: .75rem; }
+.btn-login, .btn-signup {
+  padding: .45rem 1.1rem; border-radius: 50px; font-size: .85rem; font-weight: 600;
+  cursor: pointer; border: none; transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+.btn-login { background: transparent; border: 1.5px solid var(--verde); color: var(--verde); }
+.btn-login:hover { background: var(--verde); color: white; }
+.btn-signup { background: var(--verde); color: white; }
+.btn-signup:hover { background: var(--oscuro); transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 7rem 4rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(82,183,136,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(212,168,83,0.08) 0%, transparent 60%);
+}
+.hero-leaves {
+  position: absolute; right: -5%; top: 10%; width: 52%; z-index: 1; opacity: .85;
+}
+.hero-content { position: relative; z-index: 2; max-width: 600px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(82,183,136,0.15);
+  border: 1px solid rgba(82,183,136,0.3);
+  padding: .35rem 1rem; border-radius: 50px;
+  font-size: .82rem; font-weight: 600; color: var(--verde);
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 900; line-height: 1.1;
+  color: var(--oscuro); margin-bottom: 1.25rem;
+}
+.hero h1 em { color: var(--verde-claro); font-style: normal; }
+.hero p {
+  font-size: 1.1rem; color: var(--gris); line-height: 1.7;
+  margin-bottom: 2rem; max-width: 480px;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  padding: .85rem 2rem; border-radius: 50px; font-size: 1rem; font-weight: 600;
+  background: var(--verde); color: white; border: none; cursor: pointer;
+  transition: all .2s; font-family: 'DM Sans', sans-serif; text-decoration: none;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-primary:hover { background: var(--oscuro); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,106,79,0.3); }
+.btn-secondary {
+  padding: .85rem 2rem; border-radius: 50px; font-size: 1rem; font-weight: 600;
+  background: transparent; color: var(--verde); border: 2px solid var(--verde);
+  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif; text-decoration: none;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-secondary:hover { background: var(--verde); color: white; }
+.hero-stats {
+  display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid rgba(82,183,136,0.2);
+}
+.stat-item h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--verde); }
+.stat-item p { font-size: .82rem; color: var(--gris); }
+
+/* SECTION STYLES */
+section { padding: 5rem 4rem; }
+.section-label {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--verde-claro); margin-bottom: .75rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 900; color: var(--oscuro); margin-bottom: 1rem;
+}
+.section-sub { color: var(--gris); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-bottom: 3rem; }
+
+/* RECICLADORAS */
+#recicladoras { background: white; }
+.recicladoras-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;
+}
+.recicladora-card {
+  border: 1.5px solid rgba(82,183,136,0.15);
+  border-radius: 20px; padding: 1.5rem;
+  transition: all .25s; background: var(--crema);
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.recicladora-card:hover {
+  border-color: var(--verde-claro);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(45,106,79,0.12);
+}
+.card-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: rgba(82,183,136,0.15);
+  display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+}
+.card-name { font-weight: 700; font-size: 1rem; color: var(--oscuro); }
+.card-address { font-size: .85rem; color: var(--gris); display: flex; align-items: flex-start; gap: .4rem; }
+.card-address svg { flex-shrink: 0; margin-top: 2px; }
+.card-tel { font-size: .85rem; color: var(--gris); display: flex; align-items: center; gap: .4rem; }
+.card-materials { display: flex; flex-wrap: wrap; gap: .4rem; }
+.material-tag {
+  background: rgba(82,183,136,0.12); color: var(--verde);
+  border: 1px solid rgba(82,183,136,0.25);
+  border-radius: 50px; padding: .2rem .65rem; font-size: .75rem; font-weight: 500;
+}
+.card-link {
+  margin-top: auto; display: inline-flex; align-items: center; gap: .4rem;
+  color: var(--verde-claro); font-size: .85rem; font-weight: 600;
+  text-decoration: none; transition: gap .2s;
+}
+.card-link:hover { gap: .7rem; }
+.precio-badge {
+  background: rgba(212,168,83,0.15); color: #8b6914;
+  border: 1px solid rgba(212,168,83,0.3);
+  border-radius: 50px; padding: .2rem .7rem; font-size: .8rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: .3rem;
+}
+
+/* CAMPAÑAS */
+#campanas { background: var(--crema); }
+.campanas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.campana-card {
+  border-radius: 20px; overflow: hidden;
+  background: white; border: 1.5px solid rgba(82,183,136,0.1);
+  transition: all .25s;
+}
+.campana-card:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+.campana-header {
+  padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
+}
+.campana-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;
+}
+.icon-green { background: rgba(82,183,136,0.15); }
+.icon-gold { background: rgba(212,168,83,0.15); }
+.icon-blue { background: rgba(59,130,246,0.12); }
+.campana-title { font-weight: 700; font-size: 1rem; color: var(--oscuro); }
+.campana-org { font-size: .82rem; color: var(--gris); }
+.campana-body { padding: 0 1.5rem 1.5rem; }
+.campana-desc { font-size: .88rem; color: var(--gris); line-height: 1.65; margin-bottom: 1rem; }
+.campana-status {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .78rem; font-weight: 600;
+}
+.status-active { color: #16a34a; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #16a34a; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+
+/* RANKING */
+#ranking { background: var(--oscuro); color: white; }
+#ranking .section-label { color: var(--tierra-claro); }
+#ranking .section-title { color: white; }
+#ranking .section-sub { color: rgba(255,255,255,0.6); }
+.ranking-container { display: grid; grid-template-columns: 1fr 360px; gap: 3rem; align-items: start; }
+.ranking-list { display: flex; flex-direction: column; gap: .75rem; }
+.ranking-item {
+  display: flex; align-items: center; gap: 1rem;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 1rem 1.25rem; transition: all .2s;
+}
+.ranking-item:hover { background: rgba(82,183,136,0.12); border-color: rgba(82,183,136,0.3); }
+.rank-pos {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900;
+  min-width: 36px; text-align: center;
+}
+.rank-1 { color: #f59e0b; }
+.rank-2 { color: #9ca3af; }
+.rank-3 { color: #cd7c3a; }
+.rank-other { color: rgba(255,255,255,0.3); }
+.rank-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.rank-info { flex: 1; }
+.rank-name { font-weight: 600; font-size: .95rem; }
+.rank-detail { font-size: .8rem; color: rgba(255,255,255,0.5); }
+.rank-amount {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--tierra-claro);
+  font-weight: 700; text-align: right;
+}
+.rank-kg { font-size: .75rem; color: rgba(255,255,255,0.4); }
+.ranking-sidebar {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px; padding: 2rem;
+}
+.sidebar-title { font-weight: 700; margin-bottom: 1.5rem; font-size: 1rem; color: rgba(255,255,255,0.8); }
+.my-stats { display: flex; flex-direction: column; gap: 1rem; }
+.stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .75rem 1rem; background: rgba(255,255,255,0.04); border-radius: 12px;
+}
+.stat-label { font-size: .85rem; color: rgba(255,255,255,0.5); }
+.stat-val { font-weight: 700; color: var(--verde-lima); font-size: 1.05rem; }
+.login-cta { margin-top: 1.5rem; text-align: center; }
+.login-cta p { font-size: .85rem; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+
+/* GRACIAS */
+#gracias {
+  background: linear-gradient(135deg, rgba(45,106,79,0.06) 0%, rgba(82,183,136,0.08) 50%, rgba(212,168,83,0.05) 100%);
+  text-align: center; position: relative; overflow: hidden;
+}
+.gracias-inner { max-width: 700px; margin: 0 auto; }
+.gracias-emoji { font-size: 5rem; margin-bottom: 1.5rem; display: block; animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)} }
+#gracias .section-title { margin-bottom: 1rem; }
+.gracias-text { font-size: 1.1rem; color: var(--gris); line-height: 1.8; margin-bottom: 2.5rem; }
+.gracias-cards { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.gracias-card {
+  background: white; border-radius: 20px; padding: 1.25rem 1.5rem; flex: 1; min-width: 160px; max-width: 200px;
+  border: 1.5px solid rgba(82,183,136,0.15); text-align: center;
+}
+.gracias-card .num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--verde); font-weight: 900; }
+.gracias-card .lbl { font-size: .8rem; color: var(--gris); margin-top: .25rem; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(26,46,31,0.7); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--crema); border-radius: 28px; padding: 2.5rem;
+  width: 100%; max-width: 420px;
+  transform: translateY(20px) scale(.97); transition: transform .3s;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+}
+.modal-overlay.active .modal { transform: translateY(0) scale(1); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.75rem; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--oscuro); }
+.modal-close {
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  background: rgba(0,0,0,0.06); cursor: pointer; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center; transition: background .2s;
+}
+.modal-close:hover { background: rgba(0,0,0,0.12); }
+.modal-tabs { display: flex; gap: .5rem; margin-bottom: 1.75rem; background: rgba(0,0,0,0.05); border-radius: 12px; padding: .25rem; }
+.modal-tab {
+  flex: 1; padding: .55rem; border-radius: 10px; border: none; background: transparent;
+  cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem;
+  color: var(--gris); transition: all .2s;
+}
+.modal-tab.active { background: white; color: var(--verde); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.form-group { margin-bottom: 1.1rem; }
+.form-group label { display: block; font-size: .82rem; font-weight: 600; color: var(--texto); margin-bottom: .4rem; }
+.form-group input {
+  width: 100%; padding: .75rem 1rem; border-radius: 12px;
+  border: 1.5px solid rgba(0,0,0,0.1); background: white;
+  font-family: 'DM Sans', sans-serif; font-size: .95rem; color: var(--texto);
+  transition: border-color .2s; outline: none;
+}
+.form-group input:focus { border-color: var(--verde-claro); }
+.form-submit {
+  width: 100%; padding: .85rem; border-radius: 50px; border: none;
+  background: var(--verde); color: white; font-family: 'DM Sans', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: .5rem;
+  transition: all .2s;
+}
+.form-submit:hover { background: var(--oscuro); transform: translateY(-1px); }
+.form-footer { text-align: center; font-size: .82rem; color: var(--gris); margin-top: 1rem; }
+.form-footer a { color: var(--verde-claro); cursor: pointer; }
+.error-msg { color: #dc2626; font-size: .8rem; margin-top: .25rem; display: none; }
+.error-msg.show { display: block; }
+.success-panel { text-align: center; padding: 1rem 0; display: none; }
+.success-panel.show { display: block; }
+.success-panel .s-icon { font-size: 3rem; margin-bottom: .75rem; display: block; }
+.success-panel h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--oscuro); margin-bottom: .5rem; }
+.success-panel p { color: var(--gris); font-size: .9rem; }
+
+/* USER PANEL */
+.user-panel {
+  background: rgba(82,183,136,0.1); border: 1.5px solid rgba(82,183,136,0.25);
+  border-radius: 50px; padding: .4rem .9rem;
+  display: none; align-items: center; gap: .6rem;
+  font-size: .85rem; font-weight: 600; color: var(--verde);
+}
+.user-panel.show { display: flex; }
+.user-panel .u-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--verde); display: flex; align-items: center; justify-content: center;
+  color: white; font-size: .9rem;
+}
+
+/* FOOTER */
+footer {
+  background: var(--oscuro); color: rgba(255,255,255,0.6);
+  padding: 3rem 4rem; text-align: center;
+}
+footer .footer-logo {
+  font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900;
+  color: white; margin-bottom: .5rem;
+}
+footer .footer-logo span { color: var(--tierra-claro); }
+footer p { font-size: .88rem; line-height: 1.7; }
+footer .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+footer .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: .85rem; transition: color .2s; }
+footer .footer-links a:hover { color: var(--verde-lima); }
+.footer-copy { font-size: .78rem; color: rgba(255,255,255,0.25); margin-top: 1.5rem; }
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .hero-leaves { display: none; }
+  .ranking-container { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  footer { padding: 3rem 1.5rem; }
+}
+
+/* SCROLL ANIMATION */
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 9998;
+  background: var(--oscuro); color: white; padding: 1rem 1.5rem;
+  border-radius: 16px; font-size: .9rem; font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(100px); opacity: 0;
+  transition: all .35s cubic-bezier(.34,1.56,.64,1);
+  display: flex; align-items: center; gap: .6rem;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span>🌿</span><span id="toast-msg">¡Bienvenido!</span>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Únete</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab('signup')">Registrarse</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
+    </div>
+    <div id="formContent">
+      <div id="signup-form">
+        <div class="form-group">
+          <label>Nombre completo</label>
+          <input type="text" id="s-name" placeholder="Tu nombre">
+          <span class="error-msg" id="err-name">Por favor ingresa tu nombre</span>
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="s-email" placeholder="correo@ejemplo.com">
+          <span class="error-msg" id="err-email">Ingresa un correo válido</span>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="s-pass" placeholder="Mínimo 6 caracteres">
+          <span class="error-msg" id="err-pass">La contraseña es muy corta</span>
+        </div>
+        <div class="form-group">
+          <label>Colonia</label>
+          <input type="text" id="s-colonia" placeholder="Tu colonia en SLP">
+        </div>
+        <button class="form-submit" onclick="handleSignup()">Crear cuenta gratis 🌱</button>
+      </div>
+      <div id="login-form" style="display:none">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="l-email" placeholder="correo@ejemplo.com">
+          <span class="error-msg" id="err-lemail">Correo inválido</span>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="l-pass" placeholder="Tu contraseña">
+          <span class="error-msg" id="err-lpass">Contraseña incorrecta</span>
+        </div>
+        <button class="form-submit" onclick="handleLogin()">Entrar →</button>
+      </div>
+    </div>
+    <p class="form-footer">
+      Al registrarte aceptas contribuir a un <a>San Luis más verde</a> 🌿
+    </p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">♻️ Recicla<span>SLP</span></a>
+  <div class="nav-links">
+    <a href="#recicladoras">Recicladoras</a>
+    <a href="#campanas">Campañas</a>
+    <a href="#ranking">Ranking</a>
+    <a href="#gracias">Comunidad</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="user-panel" id="userPanel">
+      <div class="u-avatar" id="userAvatar">U</div>
+      <span id="userName">Usuario</span>
+    </div>
+    <div class="nav-btns" id="authBtns">
+      <button class="btn-login" onclick="openModal('login')">Iniciar sesión</button>
+      <button class="btn-signup" onclick="openModal('signup')">Registrarse</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <svg class="hero-leaves" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+    <g opacity=".7">
+      <ellipse cx="350" cy="220" rx="180" ry="90" fill="#2d6a4f" opacity=".08" transform="rotate(-30 350 220)"/>
+      <ellipse cx="420" cy="320" rx="200" ry="80" fill="#52b788" opacity=".1" transform="rotate(15 420 320)"/>
+      <ellipse cx="280" cy="380" rx="150" ry="70" fill="#95d5b2" opacity=".12" transform="rotate(-45 280 380)"/>
+      <circle cx="480" cy="150" r="80" fill="#d4a853" opacity=".06"/>
+      <circle cx="180" cy="480" r="60" fill="#52b788" opacity=".08"/>
+    </g>
+    <text x="300" y="300" text-anchor="middle" font-size="220" opacity=".06">🌿</text>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>🌱</span> San Luis Potosí, México
+    </div>
+    <h1>Recicla. Gana.<br>Haz <em>historia verde.</em></h1>
+    <p>Conectamos a los potosinos con las mejores recicladoras de la ciudad, campañas activas del gobierno y recompensas reales por cuidar nuestro planeta.</p>
+    <div class="hero-actions">
+      <a href="#recicladoras" class="btn-primary">🗺️ Ver recicladoras</a>
+      <button class="btn-secondary" onclick="openModal('signup')">Únete gratis</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <h3>6+</h3>
+        <p>Centros de reciclaje activos</p>
+      </div>
+      <div class="stat-item">
+        <h3>1000t</h3>
+        <p>Basura diaria en SLP</p>
+      </div>
+      <div class="stat-item">
+        <h3>$$$</h3>
+        <p>Gana por reciclar</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECICLADORAS -->
+<section id="recicladoras">
+  <div class="section-label">♻️ Directorio</div>
+  <h2 class="section-title">Recicladoras en San Luis Potosí</h2>
+  <p class="section-sub">Encuentra el centro de reciclaje más cercano a ti. Haz clic en "Más info" para visitar su página oficial y conocer sus precios actualizados.</p>
+  <div class="recicladoras-grid fade-in" id="recicladoras-grid">
+
+    <div class="recicladora-card">
+      <div class="card-icon">🏭</div>
+      <div class="card-name">MRS — Reciclaje y Residuos</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Av. Constitución 2356, Col. Simón Díaz, SLP
+      </div>
+      <div class="card-tel">📞 (444) 815-3339 / (444) 301-3220</div>
+      <div class="card-materials">
+        <span class="material-tag">Papel</span>
+        <span class="material-tag">Cartón</span>
+        <span class="material-tag">PET</span>
+        <span class="material-tag">Chatarra</span>
+        <span class="material-tag">Residuos peligrosos</span>
+      </div>
+      <div class="precio-badge">💰 Compra materiales a precio competitivo</div>
+      <a class="card-link" href="https://www.reciclajeyresiduosmrs.com/" target="_blank">Visitar sitio →</a>
+    </div>
+
+    <div class="recicladora-card">
+      <div class="card-icon">🌿</div>
+      <div class="card-name">Recicladora Ambiental Potosina (RAP)</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        San Luis Potosí, SLP
+      </div>
+      <div class="card-tel">📞 Consultar en sitio web</div>
+      <div class="card-materials">
+        <span class="material-tag">Cartón</span>
+        <span class="material-tag">Archivo muerto</span>
+        <span class="material-tag">Fibra</span>
+      </div>
+      <div class="precio-badge">💰 Pago por volumen de material</div>
+      <a class="card-link" href="https://rapslp.com/" target="_blank">Visitar sitio →</a>
+    </div>
+
+    <div class="recicladora-card">
+      <div class="card-icon">♻️</div>
+      <div class="card-name">Reciclados RAL (Steel & RAL)</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        San Luis Potosí y zonas aledañas
+      </div>
+      <div class="card-tel">📞 Ver sitio para contacto</div>
+      <div class="card-materials">
+        <span class="material-tag">Acero</span>
+        <span class="material-tag">Metales</span>
+        <span class="material-tag">Chatarra</span>
+      </div>
+      <div class="precio-badge">💰 Precios según peso y tipo</div>
+      <a class="card-link" href="https://www.steelandral.com/" target="_blank">Visitar sitio →</a>
+    </div>
+
+    <div class="recicladora-card">
+      <div class="card-icon">🏗️</div>
+      <div class="card-name">Reciclaje y Recolección del Bajío</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Eje 128 #190, Zona Industrial San Luis, 78395
+      </div>
+      <div class="card-tel">📞 (441) 107-4957</div>
+      <div class="card-materials">
+        <span class="material-tag">Residuos industriales</span>
+        <span class="material-tag">Acero inoxidable</span>
+        <span class="material-tag">Chatarra</span>
+      </div>
+      <div class="precio-badge">💰 Cotización por tonelada</div>
+      <a class="card-link" href="https://reciclamexico.com.mx/centros-de-reciclaje/reciclaje-y-recoleccion-del-bajio-2/" target="_blank">Ver directorio →</a>
+    </div>
+
+    <div class="recicladora-card">
+      <div class="card-icon">🍃</div>
+      <div class="card-name">Centro de Reciclaje del Altiplano</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cam. a Portezuelo 70, Real del Potosí, 78448
+      </div>
+      <div class="card-tel">📞 (444) 213-5761</div>
+      <div class="card-materials">
+        <span class="material-tag">Múltiples materiales</span>
+        <span class="material-tag">Región altiplano</span>
+      </div>
+      <div class="precio-badge">💰 Consultar precios al contactar</div>
+      <a class="card-link" href="https://reciclamexico.com.mx/centros-de-reciclaje/centro-de-reciclaje-del-altiplano-oficinas/" target="_blank">Ver info →</a>
+    </div>
+
+    <div class="recicladora-card">
+      <div class="card-icon">🥤</div>
+      <div class="card-name">PetStar — Planta de Acopio SLP</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        San Luis Potosí (Zona Industrial)
+      </div>
+      <div class="card-tel">📞 Consultar vía Arca Continental</div>
+      <div class="card-materials">
+        <span class="material-tag">Botellas PET</span>
+        <span class="material-tag">Envases plásticos</span>
+      </div>
+      <div class="precio-badge">💰 Acopio masivo: +380M botellas/año</div>
+      <a class="card-link" href="https://www.petstar.mx/" target="_blank">Visitar sitio →</a>
+    </div>
+
+    <div class="recicladora-card" style="border: 1.5px dashed rgba(82,183,136,0.3); background: rgba(82,183,136,0.03);">
+      <div class="card-icon" style="background: rgba(82,183,136,0.07);">🏛️</div>
+      <div class="card-name">CIEA — Casa Colorada (Municipal)</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Camino a la Presa San José s/n, SLP
+      </div>
+      <div class="card-tel">📅 Lunes–Viernes 8:00 am – 3:00 pm</div>
+      <div class="card-materials">
+        <span class="material-tag">Aceite cocina</span>
+        <span class="material-tag">Electrónicos</span>
+        <span class="material-tag">Medicamentos</span>
+        <span class="material-tag">Papel</span>
+        <span class="material-tag">Pilas</span>
+        <span class="material-tag">PET</span>
+      </div>
+      <div class="precio-badge" style="background: rgba(82,183,136,0.1); color: var(--verde); border-color: rgba(82,183,136,0.25);">🏛️ Gratuito — Centro gubernamental</div>
+      <a class="card-link" href="https://www.facebook.com/GestionEcologicaSLP/" target="_blank">Ver Facebook →</a>
+    </div>
+
+    <div class="recicladora-card" style="border: 1.5px dashed rgba(82,183,136,0.3); background: rgba(82,183,136,0.03);">
+      <div class="card-icon" style="background: rgba(82,183,136,0.07);">📋</div>
+      <div class="card-name">Directorio Completo — ReciclaMe México</div>
+      <div class="card-address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Todo San Luis Potosí — búsqueda por colonia
+      </div>
+      <div class="card-tel">🗺️ Incluye mapa interactivo de ubicaciones</div>
+      <div class="card-materials">
+        <span class="material-tag">Todos los materiales</span>
+        <span class="material-tag">Todas las colonias</span>
+      </div>
+      <div class="precio-badge" style="background: rgba(82,183,136,0.1); color: var(--verde); border-color: rgba(82,183,136,0.25);">🔍 Buscador avanzado de centros</div>
+      <a class="card-link" href="https://reciclamexico.com.mx/centros-de-reciclaje/mexico/san-luis-potosi/" target="_blank">Explorar directorio →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CAMPAÑAS -->
+<section id="campanas">
+  <div class="section-label">📣 Vigentes 2025</div>
+  <h2 class="section-title">Campañas Gubernamentales Activas</h2>
+  <p class="section-sub">El Gobierno Municipal y Estatal de San Luis Potosí tiene programas activos de reciclaje, educación ambiental y reconocimientos económicos.</p>
+  <div class="campanas-grid fade-in">
+
+    <div class="campana-card">
+      <div class="campana-header">
+        <div class="campana-icon icon-green">🏠</div>
+        <div>
+          <div class="campana-title">Módulo CIEA — Acopio Permanente</div>
+          <div class="campana-org">Gobierno Municipal de SLP</div>
+        </div>
+      </div>
+      <div class="campana-body">
+        <p class="campana-desc">El Centro de Información y Educación Ambiental ("Casa Colorada") opera de lunes a viernes como punto de acopio para aceite de cocina, electrónicos, medicamentos caducos, papel, pilas y PET. ¡Sin costo y abierto a todos!</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="campana-status status-active"><span class="status-dot"></span> Campaña activa</span>
+          <span style="font-size:.78rem;color:var(--gris)">Cam. a la Presa San José s/n</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="campana-card">
+      <div class="campana-header">
+        <div class="campana-icon icon-gold">🏆</div>
+        <div>
+          <div class="campana-title">Premio Municipal al Mérito Ecológico 2025</div>
+          <div class="campana-org">Ayuntamiento de SLP — Alcalde Enrique Galindo</div>
+        </div>
+      </div>
+      <div class="campana-body">
+        <p class="campana-desc">Reconocimiento oficial para personas, comunidades, empresas e instituciones con acciones destacadas en conservación ambiental. Incluye 5 categorías con premios y reconocimientos formales del cabildo potosino.</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="campana-status status-active"><span class="status-dot"></span> Convocatoria 2025 entregada</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="campana-card">
+      <div class="campana-header">
+        <div class="campana-icon icon-blue">📚</div>
+        <div>
+          <div class="campana-title">Talleres y Conferencias CIEA</div>
+          <div class="campana-org">Dirección de Gestión Ecológica y Manejo de Residuos</div>
+        </div>
+      </div>
+      <div class="campana-body">
+        <p class="campana-desc">En 2025 se impartieron más de 170 talleres y 160 conferencias gratuitas sobre reciclaje y medio ambiente. También se donaron 300 plantas y se plantaron 2,300 árboles en la ciudad.</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="campana-status status-active"><span class="status-dot"></span> Programa continuo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="campana-card">
+      <div class="campana-header">
+        <div class="campana-icon icon-green">💻</div>
+        <div>
+          <div class="campana-title">Ecología Táctica — Acopio Electrónico</div>
+          <div class="campana-org">Unidad Administrativa Municipal</div>
+        </div>
+      </div>
+      <div class="campana-body">
+        <p class="campana-desc">Contenedor permanente en Av. Salvador Nava 1580 para depositar aparatos electrónicos y línea blanca que ya no funcionen. Reciclaje responsable de e-waste regulado bajo NOM-161.</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="campana-status status-active"><span class="status-dot"></span> Activo todo el año</span>
+          <span style="font-size:.78rem;color:var(--gris)">Av. Salvador Nava 1580</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="campana-card">
+      <div class="campana-header">
+        <div class="campana-icon icon-gold">🥤</div>
+        <div>
+          <div class="campana-title">PetStar — Acopio masivo de PET</div>
+          <div class="campana-org">Arca Continental + Coca-Cola México</div>
+        </div>
+      </div>
+      <div class="campana-body">
+        <p class="campana-desc">Con una inversión de 56.5 millones de pesos, la planta de San Luis amplió su capacidad para recuperar más de 380 millones de botellas de PET al año, generando 143 empleos directos en la ciudad.</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="campana-status status-active"><span class="status-dot"></span> Ampliación inaugurada 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="campana-card">
+      <div class="campana-header">
+        <div class="campana-icon icon-green">🌳</div>
+        <div>
+          <div class="campana-title">SEGE — Navidad Verde 2025</div>
+          <div class="campana-org">Secretaría de Ecología y Gestión Ambiental del Estado</div>
+        </div>
+      </div>
+      <div class="campana-body">
+        <p class="campana-desc">Caravana ambiental para reducir el desperdicio en temporada navideña. La SEGE también regula el Registro de Impacto Ambiental e impulsa la gestión integral de residuos en todo el estado potosino.</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="campana-status status-active"><span class="status-dot"></span> Campaña estatal activa</span>
+          <a href="https://segam.slp.gob.mx/residuos/" target="_blank" style="font-size:.78rem;color:var(--verde-claro);text-decoration:none;font-weight:600">Ver SEGAM →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRECIOS DE REFERENCIA -->
+<section style="padding:3rem 4rem; background: white;">
+  <div class="section-label">💵 Referencia</div>
+  <h2 class="section-title">¿Cuánto puedo ganar reciclando?</h2>
+  <p class="section-sub">Precios aproximados de compra de materiales reciclables en SLP. Los precios varían según calidad, peso y recicladora. Contacta directamente para cotización.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem" class="fade-in">
+    <div style="background:var(--crema);border-radius:18px;padding:1.25rem;border:1.5px solid rgba(82,183,136,0.15);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.5rem">🥤</div>
+      <div style="font-weight:700;color:var(--oscuro);margin-bottom:.25rem">PET limpio</div>
+      <div style="font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);font-weight:900">$2–4</div>
+      <div style="font-size:.78rem;color:var(--gris)">pesos por kg</div>
+    </div>
+    <div style="background:var(--crema);border-radius:18px;padding:1.25rem;border:1.5px solid rgba(82,183,136,0.15);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.5rem">📰</div>
+      <div style="font-weight:700;color:var(--oscuro);margin-bottom:.25rem">Papel / Cartón</div>
+      <div style="font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);font-weight:900">$1–2.5</div>
+      <div style="font-size:.78rem;color:var(--gris)">pesos por kg</div>
+    </div>
+    <div style="background:var(--crema);border-radius:18px;padding:1.25rem;border:1.5px solid rgba(82,183,136,0.15);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.5rem">🔩</div>
+      <div style="font-weight:700;color:var(--oscuro);margin-bottom:.25rem">Chatarra de hierro</div>
+      <div style="font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);font-weight:900">$2–5</div>
+      <div style="font-size:.78rem;color:var(--gris)">pesos por kg</div>
+    </div>
+    <div style="background:var(--crema);border-radius:18px;padding:1.25rem;border:1.5px solid rgba(82,183,136,0.15);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.5rem">🪙</div>
+      <div style="font-weight:700;color:var(--oscuro);margin-bottom:.25rem">Cobre</div>
+      <div style="font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);font-weight:900">$80–120</div>
+      <div style="font-size:.78rem;color:var(--gris)">pesos por kg</div>
+    </div>
+    <div style="background:var(--crema);border-radius:18px;padding:1.25rem;border:1.5px solid rgba(82,183,136,0.15);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.5rem">🥫</div>
+      <div style="font-weight:700;color:var(--oscuro);margin-bottom:.25rem">Aluminio</div>
+      <div style="font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);font-weight:900">$20–35</div>
+      <div style="font-size:.78rem;color:var(--gris)">pesos por kg</div>
+    </div>
+    <div style="background:var(--crema);border-radius:18px;padding:1.25rem;border:1.5px solid rgba(82,183,136,0.15);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.5rem">🖥️</div>
+      <div style="font-weight:700;color:var(--oscuro);margin-bottom:.25rem">Electrónicos</div>
+      <div style="font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);font-weight:900">Variable</div>
+      <div style="font-size:.78rem;color:var(--gris)">según componentes</div>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:.82rem;color:var(--gris);text-align:center">⚠️ Los precios son estimados y varían por recicladora. Consulta directamente para cotización exacta.</p>
+</section>
+
+<!-- RANKING -->
+<section id="ranking">
+  <div class="section-label">🏆 Tabla de líderes</div>
+  <h2 class="section-title">Los potosinos más verdes</h2>
+  <p class="section-sub">Registra tu ahorro y compite con la comunidad. ¡Los mejores recicladores de San Luis en un solo lugar!</p>
+  <div class="ranking-container">
+    <div>
+      <div class="ranking-list" id="rankingList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+    <div class="ranking-sidebar">
+      <div class="sidebar-title">📊 Mi progreso</div>
+      <div id="myStatsPanel">
+        <div class="my-stats" id="loggedStats" style="display:none">
+          <div class="stat-row">
+            <span class="stat-label">Kg reciclados</span>
+            <span class="stat-val" id="myKg">0 kg</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Ganancias estimadas</span>
+            <span class="stat-val" id="myMoney">$0 MXN</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Posición en ranking</span>
+            <span class="stat-val" id="myRank">#—</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Árboles equivalentes</span>
+            <span class="stat-val" id="myTrees">🌳 0</span>
+          </div>
+          <div style="margin-top:1.25rem">
+            <label style="font-size:.82rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:.5rem">Registrar reciclaje (kg)</label>
+            <div style="display:flex;gap:.5rem">
+              <input type="number" id="kgInput" placeholder="ej. 5" min="0" step="0.5"
+                style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none">
+              <select id="matInput"
+                style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none">
+                <option value="2">PET ($2/kg)</option>
+                <option value="2">Papel ($2/kg)</option>
+                <option value="4">Chatarra ($4/kg)</option>
+                <option value="25">Aluminio ($25/kg)</option>
+                <option value="100">Cobre ($100/kg)</option>
+              </select>
+            </div>
+            <button onclick="addRecycling()" style="width:100%;margin-top:.6rem;padding:.65rem;border-radius:10px;border:none;background:var(--verde-claro);color:var(--oscuro);font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .2s" onmouseover="this.style.background='#95d5b2'" onmouseout="this.style.background='var(--verde-claro)'">
+              ➕ Registrar
+            </button>
+          </div>
+        </div>
+        <div id="guestStats" style="text-align:center;padding:1rem 0">
+          <div style="font-size:2.5rem;margin-bottom:.75rem">🌱</div>
+          <p style="color:rgba(255,255,255,0.5);font-size:.88rem;margin-bottom:1.25rem">Inicia sesión para ver tu progreso y aparecer en el ranking</p>
+          <button class="btn-primary" onclick="openModal('signup')" style="width:100%;justify-content:center">
+            Unirme al ranking
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRACIAS -->
+<section id="gracias">
+  <div class="gracias-inner fade-in">
+    <span class="gracias-emoji">🌿</span>
+    <div class="section-label" style="justify-content:center">💚 Comunidad</div>
+    <h2 class="section-title">¡Gracias por hacer SLP más verde!</h2>
+    <p class="gracias-text">
+      Cada botella que reciclas, cada kilo de cartón que llevas a una recicladora, cada gesto pequeño… 
+      se convierte en un acto poderoso que transforma nuestra ciudad. 
+      <strong>San Luis Potosí te agradece.</strong> El planeta te agradece. 
+      Juntos estamos construyendo una ciudad más limpia, más sana y más orgullosa de ser potosina.
+    </p>
+    <div class="gracias-cards">
+      <div class="gracias-card">
+        <div class="num">6+</div>
+        <div class="lbl">Recicladoras conectadas</div>
+      </div>
+      <div class="gracias-card">
+        <div class="num">2,300</div>
+        <div class="lbl">Árboles plantados en 2025</div>
+      </div>
+      <div class="gracias-card">
+        <div class="num">170+</div>
+        <div class="lbl">Talleres impartidos</div>
+      </div>
+      <div class="gracias-card">
+        <div class="num">380M</div>
+        <div class="lbl">Botellas PET recuperadas/año</div>
+      </div>
+    </div>
+    <p style="color:var(--gris);font-size:.95rem;max-width:500px;margin:0 auto 2rem">
+      ¿Aún no eres parte de nuestra comunidad? <strong>Únete gratis</strong> y empieza a registrar tu impacto positivo.
+    </p>
+    <button class="btn-primary" onclick="openModal('signup')" style="margin:0 auto">
+      🌱 Únete a RecyclaSLP
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Recicla<span>SLP</span></div>
+  <p>Conectando a los potosinos con un futuro más verde.<br>San Luis Potosí, México 🇲🇽</p>
+  <div class="footer-links">
+    <a href="https://segam.slp.gob.mx/residuos/" target="_blank">SEGAM</a>
+    <a href="https://www.facebook.com/GestionEcologicaSLP/" target="_blank">Gestión Ecológica SLP</a>
+    <a href="https://reciclamexico.com.mx/centros-de-reciclaje/mexico/san-luis-potosi/" target="_blank">ReciclaMe México</a>
+    <a href="https://sitio.sanluis.gob.mx/" target="_blank">Gobierno Municipal SLP</a>
+    <a href="https://www.petstar.mx/" target="_blank">PetStar</a>
+  </div>
+  <div class="footer-copy">© 2025 RecyclaSLP — Hecho con 💚 para San Luis Potosí</div>
+</footer>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
+import { getFirestore, doc, setDoc } 
+from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+import { collection, getDocs } 
+from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBvRUsiJGm3_GmpEen2VgQrDD2djBn2YmA",
+    authDomain: "reciclaje-proyecto-progra.firebaseapp.com",
+    projectId: "reciclaje-proyecto-progra",
+    storageBucket: "reciclaje-proyecto-progra.firebasestorage.app",
+    messagingSenderId: "134202420409",
+    appId: "1:134202420409:web:a5a1bb68f3e7faa2697f68",
+    measurementId: "G-TX16Z5DH7S"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.firebaseRegister = async (name, email, password) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+  await setDoc(doc(db, "users", email), {
+    name, email, kg: 0, money: 0
+  });
+};
+
+window.firebaseLogin = async (email, password) => {
+  await signInWithEmailAndPassword(auth, email, password);
+};
+
+window.getAllUsers = async () => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  let list = [];
+
+  querySnapshot.forEach((doc) => {
+    list.push(doc.data());
+  });
+
+  return list;
+};
+</script>
+
+<script>
+// ====== STATE ======
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem('recyclaSLP_users') || '{}');
+let currentTab = 'signup';
+
+// ====== DEMO RANKING DATA ======
+const demoRanking = [
+];
+
+// ====== MODAL ======
+function openModal(tab) {
+  document.getElementById('authModal').classList.add('active');
+  switchTab(tab || 'signup');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('authModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('authModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('tab-signup').className = 'modal-tab' + (tab === 'signup' ? ' active' : '');
+  document.getElementById('tab-login').className = 'modal-tab' + (tab === 'login' ? ' active' : '');
+  document.getElementById('modalTitle').textContent = tab === 'signup' ? 'Únete' : 'Bienvenido';
+}
+
+// ====== AUTH ======
+function handleSignup() {
+  clearErrors();
+  const name = document.getElementById('s-name').value.trim();
+  const email = document.getElementById('s-email').value.trim();
+  const pass = document.getElementById('s-pass').value;
+  const colonia = document.getElementById('s-colonia').value.trim();
+  let valid = true;
+  if (!name) { showErr('err-name'); valid = false; }
+  if (!email || !email.includes('@')) { showErr('err-email'); valid = false; }
+  if (pass.length < 6) { showErr('err-pass'); valid = false; }
+  if (!valid) return;
+  firebaseRegister(name, email, pass)
+  .then(() => {
+    loginUser({ name, email, kg: 0, money: 0 });
+  })
+  .catch(err => {
+    alert(err.message);
+  });
+}
+
+function handleLogin() {
+   clearErrors();
+
+  const email = document.getElementById('l-email').value.trim();
+  const pass = document.getElementById('l-pass').value;
+
+  let valid = true;
+
+  if (!email || !email.includes('@')) { 
+    showErr('err-lemail'); 
+    valid = false; 
+  }
+
+  if (!pass) { 
+    showErr('err-lpass'); 
+    valid = false; 
+  }
+
+  if (!valid) return;
+
+  // LOGIN CON FIREBASE
+  firebaseLogin(email, pass)
+    .then(() => {
+      // Simulación para UI (temporal)
+      loginUser({
+        name: email,
+        email: email,
+        kg: 0,
+        money: 0
+      });
+    })
+    .catch(() => {
+      document.getElementById('err-lpass').textContent = 'Correo o contraseña incorrectos';
+      showErr('err-lpass');
+    });
+  }
+function loginUser(user) {
+  currentUser = user;
+  closeModal();
+  updateUI();
+  showToast('¡Bienvenido, ' + user.name.split(' ')[0] + '! 🌿');
+}
+
+function updateUI() {
+  if (!currentUser) {
+    document.getElementById('authBtns').style.display = 'flex';
+    document.getElementById('userPanel').classList.remove('show');
+    document.getElementById('loggedStats').style.display = 'none';
+    document.getElementById('guestStats').style.display = 'block';
+    return;
+  }
+  document.getElementById('authBtns').style.display = 'none';
+  document.getElementById('userPanel').classList.add('show');
+  document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
+  document.getElementById('userAvatar').textContent = currentUser.name[0].toUpperCase();
+  document.getElementById('loggedStats').style.display = 'block';
+  document.getElementById('guestStats').style.display = 'none';
+  refreshMyStats();
+  renderRanking();
+}
+
+function refreshMyStats() {
+  if (!currentUser) return;
+  document.getElementById('myKg').textContent = currentUser.kg.toFixed(1) + ' kg';
+  document.getElementById('myMoney').textContent = '$' + currentUser.money.toFixed(0) + ' MXN';
+  const trees = Math.floor(currentUser.kg / 30);
+  document.getElementById('myTrees').textContent = '🌳 ' + trees;
+  // rank
+  const allUsers = buildAllUsers();
+  const sorted = allUsers.sort((a,b) => b.kg - a.kg);
+  const pos = sorted.findIndex(u => u.email === currentUser.email) + 1;
+  document.getElementById('myRank').textContent = '#' + (pos || '—');
+}
+
+function buildAllUsers() {
+  const u = Object.values(users).map(u => ({...u}));
+  // merge demo
+  const result = [...demoRanking.map((d,i) => ({name:d.name,colonia:d.colonia,kg:d.kg,money:d.kg*3,emoji:d.emoji,demo:true})), ...u];
+  return result;
+}
+
+function addRecycling() {
+  if (!currentUser) { openModal('login'); return; }
+  const kg = parseFloat(document.getElementById('kgInput').value);
+  const rate = parseFloat(document.getElementById('matInput').value);
+  if (!kg || kg <= 0) { showToast('⚠️ Ingresa los kilogramos'); return; }
+  currentUser.kg += kg;
+  currentUser.money += kg * rate;
+  users[currentUser.email] = currentUser;
+  localStorage.setItem('recyclaSLP_users', JSON.stringify(users));
+  document.getElementById('kgInput').value = '';
+  refreshMyStats();
+  renderRanking();
+  showToast('✅ ¡' + kg + ' kg registrados! Ganaste $' + (kg * rate).toFixed(0) + ' estimados');
+}
+
+// ====== RANKING ======
+const medals = ['🥇','🥈','🥉'];
+
+async function renderRanking() {
+  const firebaseUsers = await window.getAllUsers();
+
+  const all = [
+    ...demoRanking.map(d => ({
+      name: d.name,
+      colonia: d.colonia,
+      kg: d.kg,
+      money: d.kg * 3,
+      emoji: d.emoji,
+      demo: true
+    })),
+    ...firebaseUsers
+  ];
+
+  const sorted = all.sort((a,b) => b.kg - a.kg).slice(0, 10);
+
+  const list = document.getElementById('rankingList'); // 👈 FALTABA
+  list.innerHTML = ''; // 👈 limpiar antes de renderizar
+
+  sorted.forEach((u, i) => {
+    const isMe = currentUser && u.email === currentUser.email;
+
+    const item = document.createElement('div');
+    item.className = 'ranking-item';
+
+    if (isMe) item.style.borderColor = 'rgba(82,183,136,0.4)';
+
+    const posClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+
+    item.innerHTML = `
+      <div class="rank-pos ${posClass}">${i < 3 ? medals[i] : '#'+(i+1)}</div>
+      <div class="rank-avatar">${u.emoji || u.name[0]}</div>
+      <div class="rank-info">
+        <div class="rank-name">${u.name}${isMe ? ' <span style="color:var(--verde-lima);font-size:.75rem">(tú)</span>' : ''}</div>
+        <div class="rank-detail">${u.colonia || 'SLP'}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="rank-amount">$${(u.money || u.kg*3).toFixed(0)}</div>
+        <div class="rank-kg">${u.kg.toFixed(1)} kg</div>
+      </div>
+    `;
+
+    list.appendChild(item);
+  });
+}
+
+
+// ====== UTILS ======
+function showErr(id) { document.getElementById(id).classList.add('show'); }
+function clearErrors() { document.querySelectorAll('.error-msg').forEach(e => { e.classList.remove('show'); e.textContent = e.textContent; }); }
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg.replace(/^[^a-zA-Z]*/, '');
+  t.querySelector('span:first-child').textContent = msg.match(/^[^\w]*/)?.[0]?.trim() || '🌿';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ====== SCROLL ANIMATIONS ======
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ====== INIT ======
+renderRanking();
+updateUI();
+</script>
+<!-- CHATBOT -->
+<style>
+#chatBtn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9997;width:62px;height:62px;border-radius:50%;background:var(--verde);color:#fff;border:none;font-size:1.7rem;cursor:pointer;box-shadow:0 10px 30px rgba(45,106,79,.4);transition:transform .2s}
+#chatBtn:hover{transform:scale(1.08)}
+#chatBox{position:fixed;bottom:6.5rem;right:1.5rem;z-index:9997;width:340px;max-width:calc(100vw - 3rem);height:480px;background:#fff;border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.25);display:none;flex-direction:column;overflow:hidden;border:1.5px solid rgba(82,183,136,.25)}
+#chatBox.show{display:flex}
+#chatHead{background:var(--verde);color:#fff;padding:1rem 1.2rem;font-family:'Playfair Display',serif;font-weight:900;display:flex;align-items:center;gap:.6rem}
+#chatMsgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;background:var(--crema)}
+.cmsg{padding:.65rem .9rem;border-radius:14px;font-size:.88rem;line-height:1.5;max-width:85%;white-space:pre-wrap}
+.cmsg.bot{background:#fff;border:1px solid rgba(82,183,136,.2);align-self:flex-start}
+.cmsg.user{background:var(--verde);color:#fff;align-self:flex-end}
+#chatForm{display:flex;gap:.5rem;padding:.75rem;border-top:1px solid rgba(0,0,0,.08);background:#fff}
+#chatInput{flex:1;padding:.65rem .9rem;border-radius:50px;border:1.5px solid rgba(0,0,0,.1);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none}
+#chatInput:focus{border-color:var(--verde-claro)}
+#chatSend{padding:0 1.1rem;border-radius:50px;border:none;background:var(--verde);color:#fff;font-weight:700;cursor:pointer}
+</style>
+<button id="chatBtn" title="Pregúntale al EcoBot">🌱</button>
+<div id="chatBox">
+  <div id="chatHead">🌿 EcoBot · Consejos de reciclaje</div>
+  <div id="chatMsgs"></div>
+  <form id="chatForm">
+    <input id="chatInput" placeholder="Pregúntame sobre reciclaje..." autocomplete="off"/>
+    <button id="chatSend" type="submit">➤</button>
+  </form>
+</div>
+<script>
+(function(){
+  const btn=document.getElementById('chatBtn'),box=document.getElementById('chatBox'),
+        msgs=document.getElementById('chatMsgs'),form=document.getElementById('chatForm'),
+        input=document.getElementById('chatInput');
+  const history=[];
+  const SYSTEM="Eres EcoBot, asistente de RecyclaSLP en San Luis Potosí, México. Das consejos CORTOS (máx 3-4 oraciones), prácticos y acertados sobre reciclaje, separación de residuos, reutilización y cuidado ambiental. Responde en español, tono amigable. Si te preguntan algo fuera de reciclaje/medio ambiente, redirige amablemente.";
+  function add(role,text){
+    const d=document.createElement('div');
+    d.className='cmsg '+(role==='user'?'user':'bot');
+    d.textContent=text;
+    msgs.appendChild(d);
+    msgs.scrollTop=msgs.scrollHeight;
+    return d;
+  }
+  btn.onclick=()=>{
+    box.classList.toggle('show');
+    if(box.classList.contains('show')&&!msgs.children.length){
+      add('bot','¡Hola! 🌱 Soy EcoBot. Pregúntame lo que quieras sobre reciclaje: cómo separar PET, qué hacer con pilas, ideas para reutilizar... ¡Te ayudo!');
+    }
+  };
+  form.onsubmit=async(e)=>{
+    e.preventDefault();
+    const q=input.value.trim();if(!q)return;
+    add('user',q);history.push({role:'user',content:q});
+    input.value='';
+    const loading=add('bot','...');
+    try{
+      const r=await fetch('/.netlify/functions/chat',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({system:SYSTEM,messages:history})
+      });
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const data=await r.json();
+      const text=(data.text||'').trim()||'Lo siento, no pude responder. Intenta de nuevo.';
+      loading.textContent=text;
+      history.push({role:'assistant',content:text});
+    }catch(err){
+      console.error(err);
+      loading.textContent='⚠️ Error al conectar con el servidor. Revisa la consola.';
+    }
+  };
+})();
+</script>
+</body>
+</html>

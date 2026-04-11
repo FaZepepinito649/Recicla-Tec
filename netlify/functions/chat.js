@@ -21,7 +21,7 @@ export default async (req) => {
       });
     }
 
-    const apiKey = Netlify.env.get('OPENAI_API_KEY');
+    const apiKey = Netlify.env.get('GROQ_API_KEY');
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'OPENAI_API_KEY no configurada' }), {
         status: 500,
@@ -30,7 +30,7 @@ export default async (req) => {
     }
 
     const payload = {
-      model: 'gpt-4o-mini',
+      model: 'llama-3.1-8b-instant',
       max_tokens: 300,
       temperature: 0.7,
       messages: [
@@ -39,7 +39,7 @@ export default async (req) => {
       ]
     };
 
-    const r = await fetch('https://api.openai.com/v1/chat/completions', {
+   const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1229,7 +1229,42 @@ updateUI();
 #chatInput{flex:1;padding:.65rem .9rem;border-radius:50px;border:1.5px solid rgba(0,0,0,.1);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none}
 #chatInput:focus{border-color:var(--verde-claro)}
 #chatSend{padding:0 1.1rem;border-radius:50px;border:none;background:var(--verde);color:#fff;font-weight:700;cursor:pointer}
+#chatTip{
+  position:fixed;bottom:2.1rem;right:6rem;z-index:9997;
+  background:#fff;color:var(--oscuro);padding:.75rem 1.1rem;
+  border-radius:18px;border:1.5px solid rgba(82,183,136,.3);
+  box-shadow:0 8px 24px rgba(45,106,79,.18);
+  font-size:.88rem;font-weight:500;max-width:230px;
+  opacity:0;transform:translateX(12px);pointer-events:none;
+  transition:opacity .35s ease,transform .35s ease;
+  display:flex;align-items:center;gap:.5rem
+}
+#chatTip.show{opacity:1;transform:translateX(0);pointer-events:auto}
+#chatTip::after{
+  content:'';position:absolute;right:-8px;top:50%;
+  width:14px;height:14px;background:#fff;
+  border-right:1.5px solid rgba(82,183,136,.3);
+  border-top:1.5px solid rgba(82,183,136,.3);
+  transform:translateY(-50%) rotate(45deg)
+}
+#chatTip b{color:var(--verde);font-weight:700}
+#chatTipClose{
+  background:none;border:none;cursor:pointer;
+  font-size:1rem;color:var(--gris);padding:0 .1rem;line-height:1
+}
+#chatBtn.pulse{animation:chatPulse 2s ease-in-out infinite}
+@keyframes chatPulse{
+  0%,100%{box-shadow:0 10px 30px rgba(45,106,79,.4)}
+  50%{box-shadow:0 10px 30px rgba(45,106,79,.4),0 0 0 12px rgba(82,183,136,.25)}
+}
+@media(max-width:500px){
+  #chatTip{right:5.5rem;max-width:180px;font-size:.8rem;padding:.6rem .9rem}
+}
 </style>
+<div id="chatTip">
+  <span>¿Dudas de reciclaje? <b>¡Pregúntame!</b> 🌱</span>
+  <button id="chatTipClose" title="Cerrar">✕</button>
+</div>
 <button id="chatBtn" title="Pregúntale al EcoBot">🌱</button>
 <div id="chatBox">
   <div id="chatHead">🌿 EcoBot · Consejos de reciclaje</div>
@@ -1281,6 +1316,36 @@ updateUI();
       console.error(err);
       loading.textContent='⚠️ Error al conectar con el servidor. Revisa la consola.';
     }
+  };
+  // Tip flotante: aparece a los 3s, se oculta al abrir el chat o al cerrarlo
+  const tip=document.getElementById('chatTip'),
+        tipClose=document.getElementById('chatTipClose');
+  let tipShown=sessionStorage.getItem('ecobotTipClosed')==='1';
+  function showTip(){
+    if(tipShown||box.classList.contains('show'))return;
+    tip.classList.add('show');
+    btn.classList.add('pulse');
+    // Se auto-oculta después de 12s si el usuario no interactúa
+    setTimeout(()=>{
+      tip.classList.remove('show');
+      btn.classList.remove('pulse');
+    },12000);
+  }
+  setTimeout(showTip,3000);
+  tipClose.onclick=(e)=>{
+    e.stopPropagation();
+    tip.classList.remove('show');
+    btn.classList.remove('pulse');
+    tipShown=true;
+    sessionStorage.setItem('ecobotTipClosed','1');
+  };
+  // Al abrir el chat, ocultar el tip y detener el pulso
+  const origClick=btn.onclick;
+  btn.onclick=function(){
+    tip.classList.remove('show');
+    btn.classList.remove('pulse');
+    tipShown=true;
+    origClick.call(this);
   };
 })();
 </script>

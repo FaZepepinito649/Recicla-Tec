@@ -466,6 +466,7 @@ footer .footer-links a:hover { color: var(--verde-lima); }
     <a href="#campanas">Campañas</a>
     <a href="#ranking">Ranking</a>
     <a href="#gracias">Comunidad</a>
+    <a href="#quiz">Quiz</a>
     <a href="#vision">Visión</a>
   </div>
   <div style="display:flex;align-items:center;gap:.75rem">
@@ -1095,6 +1096,265 @@ document.addEventListener('DOMContentLoaded', function() {
     </button>
   </div>
 </section>
+<!-- QUIZ RECICLAJE IA -->
+<section id="quiz" style="background: var(--crema);">
+  <div style="max-width:700px;margin:0 auto;text-align:center">
+    <div class="section-label" style="justify-content:center">🧠 Desafío</div>
+    <h2 class="section-title">Quiz de Reciclaje con IA</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto">
+      ¿Qué tanto sabes sobre reciclaje? Pon a prueba tus conocimientos con preguntas generadas por inteligencia artificial. ¡Cada acierto sube la dificultad!
+    </p>
+
+    <div id="quizCard" class="fade-in" style="background:white;border-radius:24px;padding:2rem;border:1.5px solid rgba(82,183,136,0.2);box-shadow:var(--sombra);text-align:left">
+
+      <!-- Estado inicial -->
+      <div id="quizStart" style="text-align:center;padding:2rem 0">
+        <div style="font-size:4rem;margin-bottom:1rem">🌿🧠</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem">¿Listo para el desafío?</h3>
+        <p style="color:var(--gris);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6">
+          Las preguntas se generan con IA y se adaptan a tu nivel.<br>
+          Empieza fácil y ve subiendo de dificultad con cada acierto.
+        </p>
+        <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
+          <span style="background:rgba(82,183,136,0.1);color:var(--verde);padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">5 niveles de dificultad</span>
+          <span style="background:rgba(212,168,83,0.1);color:#8b6914;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Preguntas únicas cada vez</span>
+          <span style="background:rgba(59,130,246,0.1);color:#2563eb;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Datos curiosos incluidos</span>
+        </div>
+        <button onclick="startQuiz()" class="btn-primary" style="margin:0 auto">🚀 Comenzar Quiz</button>
+      </div>
+
+      <!-- Pregunta activa -->
+      <div id="quizActive" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem">
+          <div id="quizLevel" style="display:flex;align-items:center;gap:.4rem">
+            <span style="font-size:.8rem;color:var(--gris);font-weight:600">Nivel:</span>
+            <div id="levelDots" style="display:flex;gap:4px"></div>
+          </div>
+          <div style="display:flex;gap:1rem;font-size:.85rem;font-weight:600">
+            <span style="color:#16a34a" id="quizCorrect">✓ 0</span>
+            <span style="color:#dc2626" id="quizWrong">✗ 0</span>
+            <span style="color:var(--gris)" id="quizStreak">🔥 0 racha</span>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="quizLoading" style="text-align:center;padding:3rem 0">
+          <div style="font-size:2rem;animation:float 1.5s ease-in-out infinite">🌱</div>
+          <p style="color:var(--gris);font-size:.9rem;margin-top:.75rem" id="quizLoadingMsg">Generando pregunta...</p>
+        </div>
+
+        <!-- Pregunta -->
+        <div id="quizQuestion" style="display:none">
+          <p id="qText" style="font-size:1.1rem;font-weight:700;color:var(--oscuro);line-height:1.6;margin-bottom:1.25rem"></p>
+          <div id="qOptions" style="display:flex;flex-direction:column;gap:.6rem"></div>
+
+          <!-- Resultado -->
+          <div id="qResult" style="display:none;margin-top:1.25rem;padding:1.1rem;border-radius:16px">
+            <div id="qResultIcon" style="font-size:1.5rem;margin-bottom:.4rem"></div>
+            <p id="qExplanation" style="font-size:.88rem;line-height:1.6;margin-bottom:.4rem"></p>
+            <p id="qFunFact" style="font-size:.82rem;color:var(--gris);font-style:italic"></p>
+            <button onclick="nextQuestion()" class="btn-primary" style="margin-top:1rem;font-size:.9rem;padding:.65rem 1.5rem">
+              Siguiente pregunta →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fin del quiz -->
+      <div id="quizEnd" style="display:none;text-align:center;padding:1.5rem 0">
+        <div style="font-size:3.5rem;margin-bottom:.75rem" id="quizEndEmoji">🏆</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem" id="quizEndTitle">¡Gran trabajo!</h3>
+        <p style="color:var(--gris);font-size:.95rem;margin-bottom:.5rem" id="quizEndMsg"></p>
+        <p style="font-size:.85rem;color:var(--gris);margin-bottom:1.5rem" id="quizEndLevel"></p>
+        <button onclick="startQuiz()" class="btn-primary" style="margin:0 auto">🔄 Jugar de nuevo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.quiz-option {
+  padding: .9rem 1.1rem; border-radius: 14px;
+  border: 1.5px solid rgba(82,183,136,0.2);
+  background: var(--crema); cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: .95rem;
+  color: var(--texto); transition: all .2s; text-align: left;
+  display: flex; align-items: center; gap: .75rem;
+}
+.quiz-option:hover:not(.disabled) { border-color: var(--verde-claro); background: rgba(82,183,136,0.06); transform: translateX(4px); }
+.quiz-option .opt-letter {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(82,183,136,0.12); color: var(--verde);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .85rem; flex-shrink: 0;
+}
+.quiz-option.correct { border-color: #16a34a; background: rgba(22,163,74,0.08); }
+.quiz-option.correct .opt-letter { background: #16a34a; color: white; }
+.quiz-option.wrong { border-color: #dc2626; background: rgba(220,38,38,0.06); }
+.quiz-option.wrong .opt-letter { background: #dc2626; color: white; }
+.quiz-option.disabled { cursor: default; opacity: .6; }
+.quiz-option.disabled.correct { opacity: 1; }
+.level-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(82,183,136,0.2); transition: background .3s;
+}
+.level-dot.filled { background: var(--verde-claro); }
+.level-dot.current { background: var(--verde); box-shadow: 0 0 0 3px rgba(82,183,136,0.25); }
+</style>
+
+<script>
+(function(){
+  let quizState = { difficulty: 1, correct: 0, wrong: 0, streak: 0, maxStreak: 0, topics: [], total: 0 };
+  const MAX_QUESTIONS = 10;
+  const letters = ['A','B','C','D'];
+  const loadingMsgs = [
+    'Generando pregunta con IA...','Pensando algo interesante...','Buscando datos ecológicos...',
+    'Preparando el desafío...','Consultando al EcoBot...'
+  ];
+
+  window.startQuiz = function() {
+    quizState = { difficulty: 1, correct: 0, wrong: 0, streak: 0, maxStreak: 0, topics: [], total: 0 };
+    document.getElementById('quizStart').style.display = 'none';
+    document.getElementById('quizEnd').style.display = 'none';
+    document.getElementById('quizActive').style.display = 'block';
+    updateStats();
+    fetchQuestion();
+  };
+
+  function updateStats() {
+    document.getElementById('quizCorrect').textContent = '✓ ' + quizState.correct;
+    document.getElementById('quizWrong').textContent = '✗ ' + quizState.wrong;
+    document.getElementById('quizStreak').textContent = '🔥 ' + quizState.streak + ' racha';
+    // Level dots
+    const dots = document.getElementById('levelDots');
+    dots.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+      const d = document.createElement('div');
+      d.className = 'level-dot' + (i < quizState.difficulty ? ' filled' : '') + (i === quizState.difficulty ? ' current' : '');
+      dots.appendChild(d);
+    }
+  }
+
+  async function fetchQuestion() {
+    document.getElementById('quizLoading').style.display = 'block';
+    document.getElementById('quizQuestion').style.display = 'none';
+    document.getElementById('quizLoadingMsg').textContent = loadingMsgs[Math.floor(Math.random()*loadingMsgs.length)];
+
+    try {
+      const r = await fetch('/.netlify/functions/quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          difficulty: quizState.difficulty,
+          previousTopics: quizState.topics.slice(-5).join(', ')
+        })
+      });
+
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const data = await r.json();
+
+      if (!data.question || !data.options) throw new Error('Formato inválido');
+
+      quizState.topics.push(data.question.slice(0, 30));
+      renderQuestion(data);
+    } catch(err) {
+      console.error(err);
+      document.getElementById('quizLoading').style.display = 'none';
+      document.getElementById('quizQuestion').style.display = 'block';
+      document.getElementById('qText').textContent = '⚠️ Error al generar la pregunta. Intenta de nuevo.';
+      document.getElementById('qOptions').innerHTML = '';
+      document.getElementById('qResult').style.display = 'block';
+      document.getElementById('qResult').style.background = 'rgba(220,38,38,0.06)';
+      document.getElementById('qResultIcon').textContent = '⚠️';
+      document.getElementById('qExplanation').textContent = 'Hubo un problema con el servidor. Haz clic en "Siguiente" para reintentar.';
+      document.getElementById('qFunFact').textContent = '';
+    }
+  }
+
+  function renderQuestion(data) {
+    document.getElementById('quizLoading').style.display = 'none';
+    document.getElementById('quizQuestion').style.display = 'block';
+    document.getElementById('qResult').style.display = 'none';
+    document.getElementById('qText').textContent = data.question;
+
+    const container = document.getElementById('qOptions');
+    container.innerHTML = '';
+
+    data.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt}</span>`;
+      btn.onclick = () => handleAnswer(i, data.correct, data, container);
+      container.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(selected, correct, data, container) {
+    const btns = container.querySelectorAll('.quiz-option');
+    btns.forEach((b, i) => {
+      b.classList.add('disabled');
+      b.onclick = null;
+      if (i === correct) b.classList.add('correct');
+      if (i === selected && selected !== correct) b.classList.add('wrong');
+    });
+
+    quizState.total++;
+    const result = document.getElementById('qResult');
+    result.style.display = 'block';
+
+    if (selected === correct) {
+      quizState.correct++;
+      quizState.streak++;
+      if (quizState.streak > quizState.maxStreak) quizState.maxStreak = quizState.streak;
+      result.style.background = 'rgba(22,163,74,0.08)';
+      document.getElementById('qResultIcon').textContent = '🎉 ¡Correcto!';
+      // Subir dificultad cada 2 aciertos seguidos
+      if (quizState.streak % 2 === 0 && quizState.difficulty < 5) {
+        quizState.difficulty++;
+      }
+    } else {
+      quizState.wrong++;
+      quizState.streak = 0;
+      result.style.background = 'rgba(220,38,38,0.06)';
+      document.getElementById('qResultIcon').textContent = '❌ Incorrecto';
+      // Bajar dificultad si fallas
+      if (quizState.difficulty > 1) quizState.difficulty--;
+    }
+
+    document.getElementById('qExplanation').textContent = data.explanation || '';
+    document.getElementById('qFunFact').textContent = data.funFact ? '💡 ' + data.funFact : '';
+    updateStats();
+  }
+
+  window.nextQuestion = function() {
+    if (quizState.total >= MAX_QUESTIONS) {
+      endQuiz();
+      return;
+    }
+    fetchQuestion();
+  };
+
+  function endQuiz() {
+    document.getElementById('quizActive').style.display = 'none';
+    document.getElementById('quizEnd').style.display = 'block';
+
+    const pct = Math.round((quizState.correct / quizState.total) * 100);
+    let emoji, title;
+
+    if (pct >= 90) { emoji = '🏆'; title = '¡Eres un experto del reciclaje!'; }
+    else if (pct >= 70) { emoji = '🌟'; title = '¡Muy bien, casi experto!'; }
+    else if (pct >= 50) { emoji = '🌱'; title = '¡Vas por buen camino!'; }
+    else { emoji = '📚'; title = '¡Sigue aprendiendo!'; }
+
+    document.getElementById('quizEndEmoji').textContent = emoji;
+    document.getElementById('quizEndTitle').textContent = title;
+    document.getElementById('quizEndMsg').textContent =
+      `Acertaste ${quizState.correct} de ${quizState.total} preguntas (${pct}%) · Mejor racha: ${quizState.maxStreak} 🔥`;
+    document.getElementById('quizEndLevel').textContent =
+      `Nivel máximo alcanzado: ${quizState.difficulty} de 5`;
+  }
+})();
+</script>
 <!-- NUESTRA VISIÓN -->
 <section id="vision" style="background: linear-gradient(135deg, #1a2e1f 0%, #2d6a4f 100%); color: white; position: relative; overflow: hidden;">
   <div style="position:absolute;inset:0;opacity:.05">
@@ -1193,7 +1453,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <p style="text-align:center;font-size:.95rem;color:rgba(255,255,255,0.5);line-height:1.7;max-width:540px;margin:0 auto">
       ¿Eres recicladora, empresa, desarrollador o gobierno y quieres ser parte de este proyecto? 
-      <strong style="color:var(--verde-lima)">Contáctanos</strong> y construyamos juntos una ciudad más verde. 🌿
+     <a href="mailto:A01614686@tec.mx" style="color:var(--verde-lima);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--verde-lima)">Contáctanos</a>
     </p>
   </div>
 </section>

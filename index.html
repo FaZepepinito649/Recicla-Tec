@@ -1453,7 +1453,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <p style="text-align:center;font-size:.95rem;color:rgba(255,255,255,0.5);line-height:1.7;max-width:540px;margin:0 auto">
       ¿Eres recicladora, empresa, desarrollador o gobierno y quieres ser parte de este proyecto? 
-     <a href="mailto:A01614686@tec.mx" style="color:var(--verde-lima);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--verde-lima)">Contáctanos</a>
+    <span style="position:relative;display:inline-block">
+  <a href="mailto:A01614686@tec.mx" style="color:var(--verde-lima);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--verde-lima)" 
+     onmouseenter="this.parentElement.querySelector('.contact-tooltip').style.opacity='1';this.parentElement.querySelector('.contact-tooltip').style.transform='translateX(-50%) translateY(0)';this.parentElement.querySelector('.contact-tooltip').style.pointerEvents='auto'"
+     onmouseleave="this.parentElement.querySelector('.contact-tooltip').style.opacity='0';this.parentElement.querySelector('.contact-tooltip').style.transform='translateX(-50%) translateY(8px)';this.parentElement.querySelector('.contact-tooltip').style.pointerEvents='none'">Contáctanos</a>
+  <span class="contact-tooltip" style="
+    position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);
+    background:white;color:var(--oscuro);padding:1rem 1.25rem;border-radius:16px;
+    box-shadow:0 12px 36px rgba(0,0,0,.2);white-space:nowrap;
+    font-size:.82rem;line-height:1.6;text-align:left;font-style:normal;
+    opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+    border:1.5px solid rgba(82,183,136,.25);z-index:10;
+  ">
+    <strong style="color:var(--verde);font-size:.95rem;display:block;margin-bottom:.25rem">Carlos Gutiérrez</strong>
+    💻 App Developer<br>
+    🎓 Estudiante de 4to semestre<br>
+    📧 A01614686@tec.mx
+    <span style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:white;border-right:1.5px solid rgba(82,183,136,.25);border-bottom:1.5px solid rgba(82,183,136,.25)"></span>
+  </span>
+</span>
     </p>
   </div>
 </section>

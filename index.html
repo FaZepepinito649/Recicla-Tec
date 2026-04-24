@@ -394,6 +394,26 @@ footer .footer-links a:hover { color: var(--verde-lima); }
   display: flex; align-items: center; gap: .6rem;
 }
 .toast.show { transform: translateY(0); opacity: 1; }
+
+/* VISION CARDS - clickable */
+.vision-card-clickable {
+  cursor: pointer; transition: all .25s;
+  position: relative;
+}
+.vision-card-clickable:hover {
+  background: rgba(255,255,255,0.1) !important;
+  border-color: rgba(149,213,178,0.4) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+}
+.vision-card-clickable::after {
+  content: '→';
+  position: absolute; top: .9rem; right: 1rem;
+  color: var(--verde-lima); opacity: 0;
+  transform: translateX(-6px); transition: all .25s;
+  font-size: 1.1rem; font-weight: 700;
+}
+.vision-card-clickable:hover::after { opacity: 1; transform: translateX(0); }
 </style>
 </head>
 <body>
@@ -544,27 +564,38 @@ footer .footer-links a:hover { color: var(--verde-lima); }
       sino también una oportunidad económica para las familias potosinas.
     </p>
 
-    <!-- BENEFICIOS -->
-    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;text-align:center;margin-bottom:1.5rem;color:var(--verde-lima)">
+    <!-- BENEFICIOS - AHORA CLICKABLES -->
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;text-align:center;margin-bottom:.75rem;color:var(--verde-lima)">
       Beneficios de ReciclaSLP
     </h3>
+    <p style="text-align:center;font-size:.85rem;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;font-style:italic">
+      💡 Haz clic en cada beneficio para explorarlo
+    </p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-bottom:3.5rem" class="fade-in">
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
+
+      <div class="vision-card-clickable" onclick="goToSection('mapa')"
+           style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
         <div style="font-size:2.2rem;margin-bottom:.75rem">🗺️</div>
         <div style="font-weight:700;margin-bottom:.4rem">Directorio centralizado</div>
         <div style="font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.6">Todas las recicladoras y programas de SLP en un solo lugar, con ubicación, contacto y materiales que aceptan.</div>
       </div>
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
+
+      <div class="vision-card-clickable" onclick="goToSection('precios')"
+           style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
         <div style="font-size:2.2rem;margin-bottom:.75rem">💰</div>
         <div style="font-weight:700;margin-bottom:.4rem">Gana dinero reciclando</div>
         <div style="font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.6">Precios de referencia actualizados para que sepas cuánto vale tu PET, cartón, aluminio y más.</div>
       </div>
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
+
+      <div class="vision-card-clickable" onclick="goToSection('ranking')"
+           style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
         <div style="font-size:2.2rem;margin-bottom:.75rem">🏆</div>
         <div style="font-weight:700;margin-bottom:.4rem">Gamificación y ranking</div>
         <div style="font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.6">Registra tu reciclaje, compite con la comunidad y motívate viendo tu impacto real en el medio ambiente.</div>
       </div>
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
+
+      <div class="vision-card-clickable" onclick="openEcoBot()"
+           style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;text-align:center">
         <div style="font-size:2.2rem;margin-bottom:.75rem">🤖</div>
         <div style="font-weight:700;margin-bottom:.4rem">EcoBot inteligente</div>
         <div style="font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.6">Asistente de IA que resuelve tus dudas sobre separación de residuos, reciclaje y reutilización al instante.</div>
@@ -605,10 +636,10 @@ footer .footer-links a:hover { color: var(--verde-lima); }
             <div style="font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.6">Buscar el apoyo de expertos en desarrollo de software para reforzar la seguridad de los datos de usuario, las transacciones y la infraestructura general de la plataforma.</div>
           </div>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:1rem;background:rgba(255,255,255,0.04);border-radius:16px;padding:1.1rem 1.25rem;border:1px solid rgba(255,255,255,0.06)">
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:rgba(255,255,255,0.04);border-radius:16px;padding:1.1rem 1.25rem;border:1px solid rgba(255,255,255,0.06);cursor:pointer" onclick="goToSection('mapa');setTimeout(()=>setMapView('vision'),500)">
           <span style="font-size:1.5rem;flex-shrink:0">🇩🇪</span>
           <div>
-            <div style="font-weight:700;margin-bottom:.25rem;color:var(--verde-lima)">Sistema Pfand potosino</div>
+            <div style="font-weight:700;margin-bottom:.25rem;color:var(--verde-lima)">Sistema Pfand potosino <span style="font-size:.7rem;color:var(--tierra-claro);background:rgba(212,168,83,.15);padding:1px 8px;border-radius:50px;margin-left:4px">Ver en mapa →</span></div>
             <div style="font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.6">Crear un sistema de reciclado público de PET inspirado en el modelo <em>Pfand</em> alemán: máquinas en puntos estratégicos de la ciudad donde depositas tus botellas y recibes un reembolso inmediato.</div>
           </div>
         </div>
@@ -830,10 +861,38 @@ footer .footer-links a:hover { color: var(--verde-lima); }
 <section id="mapa" style="background: white;">
   <div class="section-label">🗺️ Ubicaciones</div>
   <h2 class="section-title">Mapa Interactivo de Reciclaje</h2>
-  <p class="section-sub">Explora todas las recicladoras y programas activos en San Luis Potosí. Haz clic en cada pin para ver los detalles y cómo llegar.</p>
+  <p class="section-sub">Explora todas las recicladoras y programas activos en San Luis Potosí, o visualiza nuestra propuesta de un sistema Pfand para la ciudad.</p>
 
-  <!-- Filtros -->
-  <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem" class="fade-in">
+  <!-- TOGGLE HOY / VISIÓN -->
+  <div style="display:flex;background:var(--crema);border:1.5px solid rgba(82,183,136,0.2);border-radius:50px;padding:.3rem;width:fit-content;margin-bottom:1.5rem;box-shadow:var(--sombra)" class="fade-in">
+    <button class="map-view-btn active" data-view="hoy" onclick="setMapView('hoy')">
+      📍 Hoy
+    </button>
+    <button class="map-view-btn" data-view="vision" onclick="setMapView('vision')">
+      🔮 Nuestra Visión
+    </button>
+  </div>
+
+  <!-- BANNER VISIÓN PFAND -->
+  <div id="visionBanner" style="display:none;background:linear-gradient(135deg,rgba(212,168,83,0.12),rgba(149,213,178,0.08));border:1.5px solid rgba(212,168,83,0.3);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+    <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+      <div style="font-size:2rem;flex-shrink:0">🇩🇪</div>
+      <div style="flex:1;min-width:240px">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--oscuro);margin-bottom:.4rem">Sistema Pfand Potosino — Cómo se vería</div>
+        <div style="font-size:.88rem;color:var(--gris);line-height:1.6">
+          Imagina depositar tu botella de PET en cualquier <strong style="color:var(--verde)">OXXO</strong> o <strong style="color:var(--verde)">Farmacia Guadalajara</strong> de SLP y recibir un reembolso inmediato.
+          Estos pines representan los puntos de depósito que tendría la red, aprovechando la infraestructura comercial existente.
+        </div>
+      </div>
+      <div style="text-align:center;background:rgba(255,255,255,0.5);padding:.75rem 1rem;border-radius:14px;flex-shrink:0">
+        <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--verde)" id="visionCount">0</div>
+        <div style="font-size:.75rem;color:var(--gris)">puntos potenciales</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros (solo visibles en vista HOY) -->
+  <div id="hoyFilters" style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem" class="fade-in">
     <button class="map-filter active" data-filter="all">Todos 📍</button>
     <button class="map-filter" data-filter="recicladora">♻️ Recicladoras</button>
     <button class="map-filter" data-filter="gobierno">🏛️ Gobierno</button>
@@ -848,6 +907,18 @@ footer .footer-links a:hover { color: var(--verde-lima); }
 </section>
 
 <style>
+.map-view-btn {
+  padding: .6rem 1.4rem; border-radius: 50px;
+  border: none; background: transparent;
+  color: var(--gris);
+  font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600;
+  cursor: pointer; transition: all .25s;
+}
+.map-view-btn:hover { color: var(--verde); }
+.map-view-btn.active {
+  background: var(--verde); color: white;
+  box-shadow: 0 4px 14px rgba(45,106,79,.3);
+}
 .map-filter {
   padding: .55rem 1.1rem; border-radius: 50px;
   border: 1.5px solid rgba(82,183,136,0.25);
@@ -865,12 +936,22 @@ footer .footer-links a:hover { color: var(--verde-lima); }
   display:inline-block;background:rgba(82,183,136,0.12);color:var(--verde);
   padding:2px 8px;border-radius:50px;font-size:.72rem;margin:2px 2px 0 0;
 }
+.popup-pfand-badge {
+  display:inline-block;background:rgba(212,168,83,.15);color:#8b6914;
+  padding:3px 10px;border-radius:50px;font-size:.72rem;font-weight:600;
+  border:1px solid rgba(212,168,83,.3);margin-top:6px;
+}
 </style>
 
 <script>
+let mapInstance = null;
+let hoyMarkers = [];
+let visionMarkers = [];
+let currentMapView = 'hoy';
+
 document.addEventListener('DOMContentLoaded', function() {
-  // Centro de SLP
   const map = L.map('map').setView([22.1565, -100.9855], 12);
+  mapInstance = map;
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap',
@@ -878,95 +959,55 @@ document.addEventListener('DOMContentLoaded', function() {
   }).addTo(map);
 
   // Iconos personalizados por tipo
-  const makeIcon = (emoji, color) => L.divIcon({
-    html: `<div style="background:${color};width:40px;height:40px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.25);border:2px solid white"><span style="transform:rotate(45deg);font-size:1.1rem">${emoji}</span></div>`,
+  const makeIcon = (emoji, color, size) => L.divIcon({
+    html: `<div style="background:${color};width:${size||40}px;height:${size||40}px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.25);border:2px solid white"><span style="transform:rotate(45deg);font-size:${size?Math.round(size*0.5)+'px':'1.1rem'}">${emoji}</span></div>`,
     className: '',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -38]
+    iconSize: [size||40, size||40],
+    iconAnchor: [(size||40)/2, size||40],
+    popupAnchor: [0, -(size||40)+2]
   });
 
   const iconRecicladora = makeIcon('♻️', '#2d6a4f');
   const iconGobierno = makeIcon('🏛️', '#d4a853');
   const iconPET = makeIcon('🥤', '#52b788');
+  const iconPfand = makeIcon('♻️', '#d4a853', 32);
 
-  // Ubicaciones (coordenadas aproximadas — ajusta si tienes las exactas)
+  // ================= UBICACIONES HOY =================
   const ubicaciones = [
-    {
-      tipo: 'recicladora', icon: iconRecicladora,
-      lat: 22.1420, lng: -100.9780,
-      nombre: 'MRS — Reciclaje y Residuos',
-      direccion: 'Av. Constitución 2356, Col. Simón Díaz',
-      tel: '(444) 815-3339',
-      tags: ['Papel','Cartón','PET','Chatarra'],
-      web: 'https://www.reciclajeyresiduosmrs.com/'
-    },
-    {
-      tipo: 'recicladora', icon: iconRecicladora,
-      lat: 22.1680, lng: -100.9520,
-      nombre: 'Recicladora Ambiental Potosina (RAP)',
-      direccion: 'San Luis Potosí, SLP',
-      tel: 'Ver sitio',
-      tags: ['Cartón','Archivo muerto','Fibra'],
-      web: 'https://rapslp.com/'
-    },
-    {
-      tipo: 'recicladora', icon: iconRecicladora,
-      lat: 22.1100, lng: -100.9300,
-      nombre: 'Reciclados RAL (Steel & RAL)',
-      direccion: 'Zona industrial SLP',
-      tel: 'Ver sitio',
-      tags: ['Acero','Metales','Chatarra'],
-      web: 'https://www.steelandral.com/'
-    },
-    {
-      tipo: 'recicladora', icon: iconRecicladora,
-      lat: 22.0850, lng: -100.9100,
-      nombre: 'Reciclaje y Recolección del Bajío',
-      direccion: 'Eje 128 #190, Zona Industrial, 78395',
-      tel: '(441) 107-4957',
-      tags: ['Industriales','Acero inoxidable'],
-      web: 'https://reciclamexico.com.mx/centros-de-reciclaje/reciclaje-y-recoleccion-del-bajio-2/'
-    },
-    {
-      tipo: 'recicladora', icon: iconRecicladora,
-      lat: 22.2800, lng: -100.8600,
-      nombre: 'Centro de Reciclaje del Altiplano',
-      direccion: 'Cam. a Portezuelo 70, Real del Potosí',
-      tel: '(444) 213-5761',
-      tags: ['Múltiples materiales'],
-      web: 'https://reciclamexico.com.mx/centros-de-reciclaje/centro-de-reciclaje-del-altiplano-oficinas/'
-    },
-    {
-      tipo: 'pet', icon: iconPET,
-      lat: 22.0950, lng: -100.9200,
-      nombre: 'PetStar — Planta de Acopio SLP',
-      direccion: 'Zona Industrial, SLP',
-      tel: 'Vía Arca Continental',
-      tags: ['PET','+380M botellas/año'],
-      web: 'https://www.petstar.mx/'
-    },
-    {
-      tipo: 'gobierno', icon: iconGobierno,
-      lat: 22.1790, lng: -100.9950,
-      nombre: 'CIEA — Casa Colorada (Municipal)',
-      direccion: 'Cam. a la Presa San José s/n',
-      tel: 'L–V 8am–3pm · GRATIS',
-      tags: ['Aceite','Electrónicos','Pilas','PET','Papel'],
-      web: 'https://www.facebook.com/GestionEcologicaSLP/'
-    },
-    {
-      tipo: 'gobierno', icon: iconGobierno,
-      lat: 22.1480, lng: -100.9760,
-      nombre: 'Ecología Táctica — Acopio Electrónico',
-      direccion: 'Av. Salvador Nava 1580',
-      tel: 'Activo todo el año',
-      tags: ['Electrónicos','Línea blanca'],
-      web: 'https://sitio.sanluis.gob.mx/'
-    }
+    { tipo: 'recicladora', icon: iconRecicladora, lat: 22.1420, lng: -100.9780,
+      nombre: 'MRS — Reciclaje y Residuos', direccion: 'Av. Constitución 2356, Col. Simón Díaz',
+      tel: '(444) 815-3339', tags: ['Papel','Cartón','PET','Chatarra'],
+      web: 'https://www.reciclajeyresiduosmrs.com/' },
+    { tipo: 'recicladora', icon: iconRecicladora, lat: 22.1680, lng: -100.9520,
+      nombre: 'Recicladora Ambiental Potosina (RAP)', direccion: 'San Luis Potosí, SLP',
+      tel: 'Ver sitio', tags: ['Cartón','Archivo muerto','Fibra'],
+      web: 'https://rapslp.com/' },
+    { tipo: 'recicladora', icon: iconRecicladora, lat: 22.1100, lng: -100.9300,
+      nombre: 'Reciclados RAL (Steel & RAL)', direccion: 'Zona industrial SLP',
+      tel: 'Ver sitio', tags: ['Acero','Metales','Chatarra'],
+      web: 'https://www.steelandral.com/' },
+    { tipo: 'recicladora', icon: iconRecicladora, lat: 22.0850, lng: -100.9100,
+      nombre: 'Reciclaje y Recolección del Bajío', direccion: 'Eje 128 #190, Zona Industrial, 78395',
+      tel: '(441) 107-4957', tags: ['Industriales','Acero inoxidable'],
+      web: 'https://reciclamexico.com.mx/centros-de-reciclaje/reciclaje-y-recoleccion-del-bajio-2/' },
+    { tipo: 'recicladora', icon: iconRecicladora, lat: 22.2800, lng: -100.8600,
+      nombre: 'Centro de Reciclaje del Altiplano', direccion: 'Cam. a Portezuelo 70, Real del Potosí',
+      tel: '(444) 213-5761', tags: ['Múltiples materiales'],
+      web: 'https://reciclamexico.com.mx/centros-de-reciclaje/centro-de-reciclaje-del-altiplano-oficinas/' },
+    { tipo: 'pet', icon: iconPET, lat: 22.0950, lng: -100.9200,
+      nombre: 'PetStar — Planta de Acopio SLP', direccion: 'Zona Industrial, SLP',
+      tel: 'Vía Arca Continental', tags: ['PET','+380M botellas/año'],
+      web: 'https://www.petstar.mx/' },
+    { tipo: 'gobierno', icon: iconGobierno, lat: 22.1790, lng: -100.9950,
+      nombre: 'CIEA — Casa Colorada (Municipal)', direccion: 'Cam. a la Presa San José s/n',
+      tel: 'L–V 8am–3pm · GRATIS', tags: ['Aceite','Electrónicos','Pilas','PET','Papel'],
+      web: 'https://www.facebook.com/GestionEcologicaSLP/' },
+    { tipo: 'gobierno', icon: iconGobierno, lat: 22.1480, lng: -100.9760,
+      nombre: 'Ecología Táctica — Acopio Electrónico', direccion: 'Av. Salvador Nava 1580',
+      tel: 'Activo todo el año', tags: ['Electrónicos','Línea blanca'],
+      web: 'https://sitio.sanluis.gob.mx/' }
   ];
 
-  const markers = [];
   ubicaciones.forEach(u => {
     const popup = `
       <b>${u.nombre}</b><br>
@@ -981,22 +1022,134 @@ document.addEventListener('DOMContentLoaded', function() {
     const marker = L.marker([u.lat, u.lng], { icon: u.icon }).bindPopup(popup);
     marker.tipo = u.tipo;
     marker.addTo(map);
-    markers.push(marker);
+    hoyMarkers.push(marker);
   });
 
-  // Filtros
+  // ================= UBICACIONES VISIÓN (OXXO + FARMACIAS GDL) =================
+  // Coordenadas distribuidas por la zona metropolitana de SLP — representativas de la red actual
+  // de OXXO y Farmacias Guadalajara para visualizar el sistema Pfand.
+  const depositos = [
+    // Centro y alrededores
+    { tipo:'oxxo', lat:22.1525, lng:-100.9785, nombre:'OXXO Centro Histórico', dir:'Av. Carranza 350' },
+    { tipo:'oxxo', lat:22.1490, lng:-100.9820, nombre:'OXXO Independencia', dir:'Independencia 745' },
+    { tipo:'oxxo', lat:22.1565, lng:-100.9760, nombre:'OXXO Plaza de Armas', dir:'Av. Universidad' },
+    { tipo:'farmgdl', lat:22.1510, lng:-100.9810, nombre:'Farmacia Guadalajara Centro', dir:'Madero 220' },
+    { tipo:'farmgdl', lat:22.1550, lng:-100.9750, nombre:'Farmacia Guadalajara Hidalgo', dir:'Hidalgo 845' },
+    // Lomas
+    { tipo:'oxxo', lat:22.1430, lng:-100.9450, nombre:'OXXO Lomas 4ta', dir:'Cordillera del Himalaya 110' },
+    { tipo:'oxxo', lat:22.1395, lng:-100.9485, nombre:'OXXO Lomas 3ra', dir:'Sierra Leona 200' },
+    { tipo:'oxxo', lat:22.1480, lng:-100.9420, nombre:'OXXO Lomas Country', dir:'Cordillera Karakorum' },
+    { tipo:'farmgdl', lat:22.1410, lng:-100.9460, nombre:'Farmacia Guadalajara Lomas', dir:'Salk 305' },
+    // Tangamanga
+    { tipo:'oxxo', lat:22.1380, lng:-100.9650, nombre:'OXXO Tangamanga', dir:'Diagonal Sur 320' },
+    { tipo:'oxxo', lat:22.1340, lng:-100.9695, nombre:'OXXO Anáhuac', dir:'Av. Cordillera de los Andes' },
+    { tipo:'farmgdl', lat:22.1360, lng:-100.9670, nombre:'Farmacia Guadalajara Anáhuac', dir:'Anáhuac 1180' },
+    // Av. Carranza / Universidad
+    { tipo:'oxxo', lat:22.1480, lng:-100.9930, nombre:'OXXO Carranza Pte', dir:'Av. Carranza 1450' },
+    { tipo:'oxxo', lat:22.1455, lng:-101.0050, nombre:'OXXO La Loma', dir:'Av. Carranza 2350' },
+    { tipo:'oxxo', lat:22.1500, lng:-101.0100, nombre:'OXXO Polanco SLP', dir:'Polanco 80' },
+    { tipo:'farmgdl', lat:22.1475, lng:-100.9990, nombre:'Farmacia Guadalajara Carranza', dir:'Carranza 1810' },
+    { tipo:'farmgdl', lat:22.1450, lng:-101.0080, nombre:'Farmacia Guadalajara Universidad', dir:'Av. Universidad' },
+    // Salvador Nava / Garita
+    { tipo:'oxxo', lat:22.1620, lng:-100.9650, nombre:'OXXO Salvador Nava', dir:'Av. Salvador Nava 920' },
+    { tipo:'oxxo', lat:22.1595, lng:-100.9580, nombre:'OXXO Garita de Jalisco', dir:'Salvador Nava 1450' },
+    { tipo:'farmgdl', lat:22.1610, lng:-100.9620, nombre:'Farmacia Guadalajara S. Nava', dir:'Salvador Nava 1100' },
+    // Norte (Saucito, Himno Nacional)
+    { tipo:'oxxo', lat:22.1750, lng:-100.9650, nombre:'OXXO Saucito', dir:'Av. Saucito 220' },
+    { tipo:'oxxo', lat:22.1810, lng:-100.9720, nombre:'OXXO Himno Nacional', dir:'Av. Himno Nacional 815' },
+    { tipo:'oxxo', lat:22.1690, lng:-100.9870, nombre:'OXXO Glorieta Juárez', dir:'Glorieta Juárez' },
+    { tipo:'farmgdl', lat:22.1740, lng:-100.9700, nombre:'Farmacia Guadalajara Saucito', dir:'Saucito 350' },
+    { tipo:'farmgdl', lat:22.1800, lng:-100.9810, nombre:'Farmacia Guadalajara Industrias', dir:'Av. Industrias' },
+    // Soledad
+    { tipo:'oxxo', lat:22.1900, lng:-100.9350, nombre:'OXXO Soledad Centro', dir:'Soledad de G. Sánchez' },
+    { tipo:'oxxo', lat:22.1950, lng:-100.9250, nombre:'OXXO Pavón', dir:'Av. San Pedro' },
+    { tipo:'oxxo', lat:22.1820, lng:-100.9420, nombre:'OXXO Glorieta Tangamanga', dir:'Glorieta Tangamanga' },
+    { tipo:'farmgdl', lat:22.1920, lng:-100.9300, nombre:'Farmacia Guadalajara Soledad', dir:'Av. Valentín Amador' },
+    // Villa Magna / Real del Potosí
+    { tipo:'oxxo', lat:22.2050, lng:-100.8950, nombre:'OXXO Villa Magna', dir:'Av. Real de Lomas' },
+    { tipo:'oxxo', lat:22.2120, lng:-100.8800, nombre:'OXXO Real del Potosí', dir:'Cam. al Portezuelo' },
+    { tipo:'farmgdl', lat:22.2080, lng:-100.8880, nombre:'Farmacia Guadalajara Villa Magna', dir:'Real de Lomas 220' },
+    // Zona Industrial / Sur
+    { tipo:'oxxo', lat:22.0980, lng:-100.9450, nombre:'OXXO Zona Industrial', dir:'Eje 100 Pte 200' },
+    { tipo:'oxxo', lat:22.1050, lng:-100.9180, nombre:'OXXO Industrias Mexicanas', dir:'Eje 134 Sur' },
+    { tipo:'oxxo', lat:22.0900, lng:-100.9080, nombre:'OXXO Bajío', dir:'Eje 128' },
+    { tipo:'farmgdl', lat:22.1020, lng:-100.9300, nombre:'Farmacia Guadalajara Industrial', dir:'Av. Industrias' },
+    // Surponiente / La Loma / Burócrata
+    { tipo:'oxxo', lat:22.1230, lng:-100.9850, nombre:'OXXO Burócrata', dir:'Av. Murillo Vidaurri' },
+    { tipo:'oxxo', lat:22.1180, lng:-100.9920, nombre:'OXXO Tequisquiapan', dir:'Av. Pedro Moreno' },
+    { tipo:'oxxo', lat:22.1290, lng:-100.9780, nombre:'OXXO Las Lajas', dir:'Av. Las Lajas' },
+    { tipo:'farmgdl', lat:22.1250, lng:-100.9870, nombre:'Farmacia Guadalajara Burócrata', dir:'Murillo Vidaurri 510' },
+    // Poniente extremo
+    { tipo:'oxxo', lat:22.1420, lng:-101.0250, nombre:'OXXO Cerro de San Pedro', dir:'Carr. al Cerro' },
+    { tipo:'oxxo', lat:22.1380, lng:-101.0180, nombre:'OXXO Pedregal', dir:'Pedregal del Bosque' },
+    // Otros puntos estratégicos
+    { tipo:'oxxo', lat:22.1655, lng:-101.0100, nombre:'OXXO Plaza San Luis', dir:'Av. Benito Juárez 1290' },
+    { tipo:'oxxo', lat:22.1720, lng:-100.9510, nombre:'OXXO Cordillera Occidental', dir:'Cordillera Occidental' },
+    { tipo:'oxxo', lat:22.1605, lng:-100.9420, nombre:'OXXO Granadina', dir:'Av. La Granadina' },
+    { tipo:'farmgdl', lat:22.1670, lng:-101.0050, nombre:'Farmacia Guadalajara Plaza SL', dir:'Av. Benito Juárez' },
+    { tipo:'farmgdl', lat:22.1780, lng:-100.9900, nombre:'Farmacia Guadalajara Norte', dir:'Eje Vial Norte' },
+    { tipo:'farmgdl', lat:22.1100, lng:-100.9550, nombre:'Farmacia Guadalajara Sur', dir:'Av. Eje Sur' },
+  ];
+
+  depositos.forEach(d => {
+    const popup = `
+      <b>📦 Depósito de Reciclaje</b><br>
+      <span style="font-size:.82rem;color:var(--gris)">Punto Pfand propuesto</span><br>
+      📍 ${d.dir}<br>
+      <div style="margin-top:6px">
+        <span class="popup-tag">PET</span>
+        <span class="popup-tag">Latas Aluminio</span>
+        <span class="popup-tag">Vidrio</span>
+      </div>
+      <div class="popup-pfand-badge">💰 Reembolso inmediato $1–3 MXN/envase</div>
+    `;
+    const marker = L.marker([d.lat, d.lng], { icon: iconPfand }).bindPopup(popup);
+    visionMarkers.push(marker);
+  });
+
+  // Inicializar contador
+  const visionCountEl = document.getElementById('visionCount');
+  if (visionCountEl) visionCountEl.textContent = depositos.length;
+
+  // Filtros (solo en modo HOY)
   document.querySelectorAll('.map-filter').forEach(btn => {
     btn.addEventListener('click', function() {
+      if (currentMapView !== 'hoy') return;
       document.querySelectorAll('.map-filter').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       const filter = this.dataset.filter;
-      markers.forEach(m => {
+      hoyMarkers.forEach(m => {
         if (filter === 'all' || m.tipo === filter) m.addTo(map);
         else map.removeLayer(m);
       });
     });
   });
 });
+
+// Cambio entre vistas
+function setMapView(view) {
+  currentMapView = view;
+  if (!mapInstance) return;
+
+  // Actualizar botones
+  document.querySelectorAll('.map-view-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+
+  if (view === 'hoy') {
+    visionMarkers.forEach(m => mapInstance.removeLayer(m));
+    hoyMarkers.forEach(m => m.addTo(mapInstance));
+    document.getElementById('hoyFilters').style.display = 'flex';
+    document.getElementById('visionBanner').style.display = 'none';
+    // Reset filter
+    document.querySelectorAll('.map-filter').forEach((b,i)=>b.classList.toggle('active',i===0));
+  } else {
+    hoyMarkers.forEach(m => mapInstance.removeLayer(m));
+    visionMarkers.forEach(m => m.addTo(mapInstance));
+    document.getElementById('hoyFilters').style.display = 'none';
+    document.getElementById('visionBanner').style.display = 'block';
+  }
+}
 </script>
 
 <!-- CAMPAÑAS -->
@@ -1076,7 +1229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </section>
 
 <!-- PRECIOS DE REFERENCIA -->
-<section style="padding:3rem 4rem; background: white;">
+<section id="precios" style="padding:3rem 4rem; background: white;">
   <div class="section-label">💵 Referencia</div>
   <h2 class="section-title">¿Cuánto puedo ganar reciclando?</h2>
   <p class="section-sub">Precios aproximados de compra de materiales reciclables en SLP. Los precios varían según calidad, peso y recicladora. Contacta directamente para cotización.</p>
@@ -1134,132 +1287,245 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="ranking-sidebar">
       <div class="sidebar-title">📊 Mi progreso</div>
-      <div id="myStatsPanel">
-        <div class="my-stats" id="loggedStats" style="display:none">
-          <div class="stat-row">
-            <span class="stat-label">Kg reciclados</span>
-            <span class="stat-val" id="myKg">0 kg</span>
-          </div>
-          <div class="stat-row">
-            <span class="stat-label">Ganancias estimadas</span>
-            <span class="stat-val" id="myMoney">$0 MXN</span>
-          </div>
-          <div class="stat-row">
-            <span class="stat-label">Posición en ranking</span>
-            <span class="stat-val" id="myRank">#—</span>
-          </div>
-          <div class="stat-row">
-            <span class="stat-label">Árboles equivalentes</span>
-            <span class="stat-val" id="myTrees">🌳 0</span>
-          </div>
-          <div style="margin-top:1.25rem">
-            <label style="font-size:.82rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:.5rem">Registrar reciclaje (kg)</label>
-            <div style="display:flex;gap:.5rem">
-              <input type="number" id="kgInput" placeholder="ej. 5" min="0" step="0.5"
-                style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none">
-              <select id="matInput"
-                style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none">
-                <option value="2">PET ($2/kg)</option>
-                <option value="2">Papel ($2/kg)</option>
-                <option value="4">Chatarra ($4/kg)</option>
-                <option value="25">Aluminio ($25/kg)</option>
-                <option value="100">Cobre ($100/kg)</option>
-              </select>
-            </div>
-            <button onclick="addRecycling()" style="width:100%;margin-top:.6rem;padding:.65rem;border-radius:10px;border:none;background:var(--verde-claro);color:var(--oscuro);font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .2s" onmouseover="this.style.background='#95d5b2'" onmouseout="this.style.background='var(--verde-claro)'">
-              ➕ Registrar
-            </button>
-          </div>
+
+      <!-- Stats solo para usuarios logueados -->
+      <div class="my-stats" id="loggedStats" style="display:none">
+        <div class="stat-row">
+          <span class="stat-label">Kg reciclados</span>
+          <span class="stat-val" id="myKg">0 kg</span>
         </div>
-        <div id="guestStats" style="text-align:center;padding:1rem 0">
-          <div style="font-size:2.5rem;margin-bottom:.75rem">🌱</div>
-          <p style="color:rgba(255,255,255,0.5);font-size:.88rem;margin-bottom:1.25rem">Inicia sesión para ver tu progreso y aparecer en el ranking</p>
-          <button class="btn-primary" onclick="openModal('signup')" style="width:100%;justify-content:center">
-            Unirme al ranking
-          </button>
+        <div class="stat-row">
+          <span class="stat-label">Ganancias estimadas</span>
+          <span class="stat-val" id="myMoney">$0 MXN</span>
         </div>
+        <div class="stat-row">
+          <span class="stat-label">Posición en ranking</span>
+          <span class="stat-val" id="myRank">#—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Árboles equivalentes</span>
+          <span class="stat-val" id="myTrees">🌳 0</span>
+        </div>
+      </div>
+
+      <!-- Mensaje para invitados -->
+      <div id="guestStats" style="text-align:center;padding:.5rem 0 1.25rem">
+        <div style="font-size:2.5rem;margin-bottom:.5rem">🌱</div>
+        <p style="color:rgba(255,255,255,0.55);font-size:.85rem;line-height:1.5">
+          Crea una cuenta para ver tu progreso, aparecer en el ranking y ganar puntos.
+        </p>
+      </div>
+
+      <!-- Formulario de registro de reciclaje (siempre visible) -->
+      <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08)">
+        <label style="font-size:.82rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:.5rem">
+          ➕ Registrar reciclaje (kg)
+        </label>
+        <div style="display:flex;gap:.5rem">
+          <input type="number" id="kgInput" placeholder="ej. 5" min="0" step="0.5"
+            style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none">
+          <select id="matInput"
+            style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none">
+            <option value="2">PET ($2/kg)</option>
+            <option value="2">Papel ($2/kg)</option>
+            <option value="4">Chatarra ($4/kg)</option>
+            <option value="25">Aluminio ($25/kg)</option>
+            <option value="100">Cobre ($100/kg)</option>
+          </select>
+        </div>
+        <button onclick="addRecycling()" id="recycleBtn"
+          style="width:100%;margin-top:.6rem;padding:.65rem;border-radius:10px;border:none;background:var(--verde-claro);color:var(--oscuro);font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .2s"
+          onmouseover="this.style.background='#95d5b2'" onmouseout="this.style.background='var(--verde-claro)'">
+          ➕ Registrar
+        </button>
+        <p id="guestHint" style="font-size:.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:.6rem">
+          🔒 Inicia sesión para guardar tu progreso
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- QUIZ RECICLAJE IA -->
+<!-- QUIZ - AHORA CON DOS MODOS -->
 <section id="quiz" style="background: var(--crema);">
   <div style="max-width:700px;margin:0 auto;text-align:center">
-    <div class="section-label" style="justify-content:center">🧠 Desafío</div>
-    <h2 class="section-title">Quiz de Reciclaje con IA</h2>
+    <div class="section-label" style="justify-content:center">🧠 Desafíos</div>
+    <h2 class="section-title">Quiz con IA</h2>
     <p class="section-sub" style="margin-left:auto;margin-right:auto">
-      ¿Qué tanto sabes sobre reciclaje? Pon a prueba tus conocimientos con preguntas generadas por inteligencia artificial. ¡Cada acierto sube la dificultad!
+      Dos quizzes potenciados por inteligencia artificial: uno para probar tus conocimientos y otro para descubrir qué tan verde es tu estilo de vida.
     </p>
 
-    <div id="quizCard" class="fade-in" style="background:white;border-radius:24px;padding:2rem;border:1.5px solid rgba(82,183,136,0.2);box-shadow:var(--sombra);text-align:left">
+    <!-- TABS DE QUIZ -->
+    <div style="display:flex;gap:.5rem;margin:0 auto 2rem;background:white;border:1.5px solid rgba(82,183,136,.2);border-radius:50px;padding:.3rem;width:fit-content;box-shadow:var(--sombra)" class="fade-in">
+      <button class="quiz-mode-btn active" data-mode="conocimientos" onclick="switchQuizMode('conocimientos')">
+        📚 Conocimientos
+      </button>
+      <button class="quiz-mode-btn" data-mode="verde" onclick="switchQuizMode('verde')">
+        🌱 ¿Qué tan verde eres?
+      </button>
+    </div>
 
-      <!-- Estado inicial -->
-      <div id="quizStart" style="text-align:center;padding:2rem 0">
-        <div style="font-size:4rem;margin-bottom:1rem">🌿🧠</div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem">¿Listo para el desafío?</h3>
-        <p style="color:var(--gris);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6">
-          Las preguntas se generan con IA y se adaptan a tu nivel.<br>
-          Empieza fácil y ve subiendo de dificultad con cada acierto.
-        </p>
-        <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
-          <span style="background:rgba(82,183,136,0.1);color:var(--verde);padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">5 niveles de dificultad</span>
-          <span style="background:rgba(212,168,83,0.1);color:#8b6914;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Preguntas únicas cada vez</span>
-          <span style="background:rgba(59,130,246,0.1);color:#2563eb;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Datos curiosos incluidos</span>
+    <!-- ============ QUIZ DE CONOCIMIENTOS ============ -->
+    <div id="quizConocimientos">
+      <div id="quizCard" class="fade-in" style="background:white;border-radius:24px;padding:2rem;border:1.5px solid rgba(82,183,136,0.2);box-shadow:var(--sombra);text-align:left">
+
+        <div id="quizStart" style="text-align:center;padding:2rem 0">
+          <div style="font-size:4rem;margin-bottom:1rem">🌿🧠</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem">¿Listo para el desafío?</h3>
+          <p style="color:var(--gris);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6">
+            Las preguntas se generan con IA y se adaptan a tu nivel.<br>
+            Empieza fácil y ve subiendo de dificultad con cada acierto.
+          </p>
+          <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
+            <span style="background:rgba(82,183,136,0.1);color:var(--verde);padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">5 niveles de dificultad</span>
+            <span style="background:rgba(212,168,83,0.1);color:#8b6914;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Preguntas únicas cada vez</span>
+            <span style="background:rgba(59,130,246,0.1);color:#2563eb;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Datos curiosos incluidos</span>
+          </div>
+          <button onclick="startQuiz()" class="btn-primary" style="margin:0 auto">🚀 Comenzar Quiz</button>
         </div>
-        <button onclick="startQuiz()" class="btn-primary" style="margin:0 auto">🚀 Comenzar Quiz</button>
+
+        <div id="quizActive" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem">
+            <div id="quizLevel" style="display:flex;align-items:center;gap:.4rem">
+              <span style="font-size:.8rem;color:var(--gris);font-weight:600">Nivel:</span>
+              <div id="levelDots" style="display:flex;gap:4px"></div>
+            </div>
+            <div style="display:flex;gap:1rem;font-size:.85rem;font-weight:600">
+              <span style="color:#16a34a" id="quizCorrect">✓ 0</span>
+              <span style="color:#dc2626" id="quizWrong">✗ 0</span>
+              <span style="color:var(--gris)" id="quizStreak">🔥 0 racha</span>
+            </div>
+          </div>
+
+          <div id="quizLoading" style="text-align:center;padding:3rem 0">
+            <div style="font-size:2rem;animation:float 1.5s ease-in-out infinite">🌱</div>
+            <p style="color:var(--gris);font-size:.9rem;margin-top:.75rem" id="quizLoadingMsg">Generando pregunta...</p>
+          </div>
+
+          <div id="quizQuestion" style="display:none">
+            <p id="qText" style="font-size:1.1rem;font-weight:700;color:var(--oscuro);line-height:1.6;margin-bottom:1.25rem"></p>
+            <div id="qOptions" style="display:flex;flex-direction:column;gap:.6rem"></div>
+
+            <div id="qResult" style="display:none;margin-top:1.25rem;padding:1.1rem;border-radius:16px">
+              <div id="qResultIcon" style="font-size:1.5rem;margin-bottom:.4rem"></div>
+              <p id="qExplanation" style="font-size:.88rem;line-height:1.6;margin-bottom:.4rem"></p>
+              <p id="qFunFact" style="font-size:.82rem;color:var(--gris);font-style:italic"></p>
+              <button onclick="nextQuestion()" class="btn-primary" style="margin-top:1rem;font-size:.9rem;padding:.65rem 1.5rem">
+                Siguiente pregunta →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="quizEnd" style="display:none;text-align:center;padding:1.5rem 0">
+          <div style="font-size:3.5rem;margin-bottom:.75rem" id="quizEndEmoji">🏆</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem" id="quizEndTitle">¡Gran trabajo!</h3>
+          <p style="color:var(--gris);font-size:.95rem;margin-bottom:.5rem" id="quizEndMsg"></p>
+          <p style="font-size:.85rem;color:var(--gris);margin-bottom:1.5rem" id="quizEndLevel"></p>
+          <button onclick="startQuiz()" class="btn-primary" style="margin:0 auto">🔄 Jugar de nuevo</button>
+        </div>
       </div>
+    </div>
 
-      <!-- Pregunta activa -->
-      <div id="quizActive" style="display:none">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem">
-          <div id="quizLevel" style="display:flex;align-items:center;gap:.4rem">
-            <span style="font-size:.8rem;color:var(--gris);font-weight:600">Nivel:</span>
-            <div id="levelDots" style="display:flex;gap:4px"></div>
+    <!-- ============ QUIZ ¿QUÉ TAN VERDE ERES? ============ -->
+    <div id="quizVerde" style="display:none">
+      <div class="fade-in" style="background:white;border-radius:24px;padding:2rem;border:1.5px solid rgba(82,183,136,0.2);box-shadow:var(--sombra);text-align:left">
+
+        <!-- Estado inicial -->
+        <div id="vqStart" style="text-align:center;padding:2rem 0">
+          <div style="font-size:4rem;margin-bottom:1rem">🌍💚</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem">¿Qué tan verde es tu estilo de vida?</h3>
+          <p style="color:var(--gris);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6">
+            Responde 6 preguntas sobre tus hábitos diarios y la IA te dará una<br>
+            evaluación personalizada con consejos para reducir tu huella.
+          </p>
+          <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
+            <span style="background:rgba(82,183,136,0.1);color:var(--verde);padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">6 preguntas rápidas</span>
+            <span style="background:rgba(212,168,83,0.1);color:#8b6914;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Evaluación con IA</span>
+            <span style="background:rgba(59,130,246,0.1);color:#2563eb;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:600">Consejos personalizados</span>
           </div>
-          <div style="display:flex;gap:1rem;font-size:.85rem;font-weight:600">
-            <span style="color:#16a34a" id="quizCorrect">✓ 0</span>
-            <span style="color:#dc2626" id="quizWrong">✗ 0</span>
-            <span style="color:var(--gris)" id="quizStreak">🔥 0 racha</span>
-          </div>
+          <button onclick="startVerdeQuiz()" class="btn-primary" style="margin:0 auto">🌱 Comenzar evaluación</button>
         </div>
 
-        <!-- Loading -->
-        <div id="quizLoading" style="text-align:center;padding:3rem 0">
-          <div style="font-size:2rem;animation:float 1.5s ease-in-out infinite">🌱</div>
-          <p style="color:var(--gris);font-size:.9rem;margin-top:.75rem" id="quizLoadingMsg">Generando pregunta...</p>
+        <!-- Pregunta activa -->
+        <div id="vqActive" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+            <span style="font-size:.85rem;color:var(--gris);font-weight:600" id="vqProgress">Pregunta 1 de 6</span>
+            <div id="vqBar" style="flex:1;height:6px;background:rgba(82,183,136,.15);border-radius:50px;margin-left:1rem;overflow:hidden">
+              <div id="vqBarFill" style="height:100%;background:var(--verde-claro);width:16%;transition:width .4s"></div>
+            </div>
+          </div>
+
+          <p id="vqText" style="font-size:1.1rem;font-weight:700;color:var(--oscuro);line-height:1.6;margin-bottom:1.25rem"></p>
+          <div id="vqOptions" style="display:flex;flex-direction:column;gap:.6rem"></div>
         </div>
 
-        <!-- Pregunta -->
-        <div id="quizQuestion" style="display:none">
-          <p id="qText" style="font-size:1.1rem;font-weight:700;color:var(--oscuro);line-height:1.6;margin-bottom:1.25rem"></p>
-          <div id="qOptions" style="display:flex;flex-direction:column;gap:.6rem"></div>
+        <!-- Loading análisis -->
+        <div id="vqAnalyzing" style="display:none;text-align:center;padding:3rem 0">
+          <div style="font-size:3rem;animation:float 1.5s ease-in-out infinite">🌿</div>
+          <p style="color:var(--gris);font-size:1rem;margin-top:1rem;font-weight:600">Analizando tu perfil verde...</p>
+          <p style="color:var(--gris);font-size:.85rem;margin-top:.5rem">La IA está preparando consejos personalizados para ti</p>
+        </div>
 
-          <!-- Resultado -->
-          <div id="qResult" style="display:none;margin-top:1.25rem;padding:1.1rem;border-radius:16px">
-            <div id="qResultIcon" style="font-size:1.5rem;margin-bottom:.4rem"></div>
-            <p id="qExplanation" style="font-size:.88rem;line-height:1.6;margin-bottom:.4rem"></p>
-            <p id="qFunFact" style="font-size:.82rem;color:var(--gris);font-style:italic"></p>
-            <button onclick="nextQuestion()" class="btn-primary" style="margin-top:1rem;font-size:.9rem;padding:.65rem 1.5rem">
-              Siguiente pregunta →
-            </button>
+        <!-- Resultado -->
+        <div id="vqResult" style="display:none">
+          <!-- Score circular -->
+          <div style="text-align:center;margin-bottom:1.5rem">
+            <div style="position:relative;width:160px;height:160px;margin:0 auto 1rem">
+              <svg width="160" height="160" viewBox="0 0 160 160" style="transform:rotate(-90deg)">
+                <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(82,183,136,.15)" stroke-width="12"/>
+                <circle id="vqScoreCircle" cx="80" cy="80" r="70" fill="none" stroke="var(--verde-claro)" stroke-width="12"
+                  stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round"
+                  style="transition:stroke-dashoffset 1.5s ease-out"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--verde)" id="vqScoreNum">0</div>
+                <div style="font-size:.7rem;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;font-weight:600">de 100</div>
+              </div>
+            </div>
+            <div id="vqLevelBadge" style="display:inline-block;background:rgba(82,183,136,.15);color:var(--verde);padding:.4rem 1.1rem;border-radius:50px;font-weight:700;font-size:.95rem;border:1.5px solid rgba(82,183,136,.3)"></div>
+          </div>
+
+          <!-- Análisis IA -->
+          <div style="background:linear-gradient(135deg,rgba(82,183,136,.06),rgba(149,213,178,.04));border:1.5px solid rgba(82,183,136,.2);border-radius:18px;padding:1.5rem;margin-bottom:1rem">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
+              <span style="font-size:1.25rem">🌿</span>
+              <strong style="color:var(--verde);font-family:'Playfair Display',serif">Tu perfil verde</strong>
+            </div>
+            <p id="vqAnalysis" style="font-size:.92rem;line-height:1.7;color:var(--texto)"></p>
+          </div>
+
+          <!-- Recomendaciones IA -->
+          <div style="background:rgba(212,168,83,.08);border:1.5px solid rgba(212,168,83,.25);border-radius:18px;padding:1.5rem;margin-bottom:1.25rem">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
+              <span style="font-size:1.25rem">💡</span>
+              <strong style="color:#8b6914;font-family:'Playfair Display',serif">Cómo mejorar</strong>
+            </div>
+            <ul id="vqTips" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.65rem"></ul>
+          </div>
+
+          <div style="text-align:center">
+            <button onclick="startVerdeQuiz()" class="btn-primary" style="margin:0 auto">🔄 Hacer otra evaluación</button>
           </div>
         </div>
-      </div>
-
-      <!-- Fin del quiz -->
-      <div id="quizEnd" style="display:none;text-align:center;padding:1.5rem 0">
-        <div style="font-size:3.5rem;margin-bottom:.75rem" id="quizEndEmoji">🏆</div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem" id="quizEndTitle">¡Gran trabajo!</h3>
-        <p style="color:var(--gris);font-size:.95rem;margin-bottom:.5rem" id="quizEndMsg"></p>
-        <p style="font-size:.85rem;color:var(--gris);margin-bottom:1.5rem" id="quizEndLevel"></p>
-        <button onclick="startQuiz()" class="btn-primary" style="margin:0 auto">🔄 Jugar de nuevo</button>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+.quiz-mode-btn {
+  padding: .65rem 1.25rem; border-radius: 50px;
+  border: none; background: transparent;
+  color: var(--gris);
+  font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600;
+  cursor: pointer; transition: all .25s;
+}
+.quiz-mode-btn:hover { color: var(--verde); }
+.quiz-mode-btn.active {
+  background: var(--verde); color: white;
+  box-shadow: 0 4px 14px rgba(45,106,79,.3);
+}
 .quiz-option {
   padding: .9rem 1.1rem; border-radius: 14px;
   border: 1.5px solid rgba(82,183,136,0.2);
@@ -1287,9 +1553,29 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 .level-dot.filled { background: var(--verde-claro); }
 .level-dot.current { background: var(--verde); box-shadow: 0 0 0 3px rgba(82,183,136,0.25); }
+.vq-tip {
+  display: flex; align-items: flex-start; gap: .65rem;
+  font-size: .88rem; line-height: 1.55; color: var(--texto);
+}
+.vq-tip-num {
+  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--tierra); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .75rem; margin-top: 1px;
+}
 </style>
 
 <script>
+// ============ Cambio entre modos de quiz ============
+function switchQuizMode(mode) {
+  document.querySelectorAll('.quiz-mode-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+  document.getElementById('quizConocimientos').style.display = mode === 'conocimientos' ? 'block' : 'none';
+  document.getElementById('quizVerde').style.display = mode === 'verde' ? 'block' : 'none';
+}
+
+// ============ QUIZ DE CONOCIMIENTOS ============
 (function(){
   let quizState = { difficulty: 1, correct: 0, wrong: 0, streak: 0, maxStreak: 0, topics: [], total: 0 };
   const MAX_QUESTIONS = 10;
@@ -1312,7 +1598,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('quizCorrect').textContent = '✓ ' + quizState.correct;
     document.getElementById('quizWrong').textContent = '✗ ' + quizState.wrong;
     document.getElementById('quizStreak').textContent = '🔥 ' + quizState.streak + ' racha';
-    // Level dots
     const dots = document.getElementById('levelDots');
     dots.innerHTML = '';
     for (let i = 1; i <= 5; i++) {
@@ -1339,9 +1624,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const data = await r.json();
-
       if (!data.question || !data.options) throw new Error('Formato inválido');
-
       quizState.topics.push(data.question.slice(0, 30));
       renderQuestion(data);
     } catch(err) {
@@ -1363,10 +1646,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('quizQuestion').style.display = 'block';
     document.getElementById('qResult').style.display = 'none';
     document.getElementById('qText').textContent = data.question;
-
     const container = document.getElementById('qOptions');
     container.innerHTML = '';
-
     data.options.forEach((opt, i) => {
       const btn = document.createElement('button');
       btn.className = 'quiz-option';
@@ -1384,61 +1665,263 @@ document.addEventListener('DOMContentLoaded', function() {
       if (i === correct) b.classList.add('correct');
       if (i === selected && selected !== correct) b.classList.add('wrong');
     });
-
     quizState.total++;
     const result = document.getElementById('qResult');
     result.style.display = 'block';
-
     if (selected === correct) {
       quizState.correct++;
       quizState.streak++;
       if (quizState.streak > quizState.maxStreak) quizState.maxStreak = quizState.streak;
       result.style.background = 'rgba(22,163,74,0.08)';
       document.getElementById('qResultIcon').textContent = '🎉 ¡Correcto!';
-      // Subir dificultad cada 2 aciertos seguidos
-      if (quizState.streak % 2 === 0 && quizState.difficulty < 5) {
-        quizState.difficulty++;
-      }
+      if (quizState.streak % 2 === 0 && quizState.difficulty < 5) quizState.difficulty++;
     } else {
       quizState.wrong++;
       quizState.streak = 0;
       result.style.background = 'rgba(220,38,38,0.06)';
       document.getElementById('qResultIcon').textContent = '❌ Incorrecto';
-      // Bajar dificultad si fallas
       if (quizState.difficulty > 1) quizState.difficulty--;
     }
-
     document.getElementById('qExplanation').textContent = data.explanation || '';
     document.getElementById('qFunFact').textContent = data.funFact ? '💡 ' + data.funFact : '';
     updateStats();
   }
 
   window.nextQuestion = function() {
-    if (quizState.total >= MAX_QUESTIONS) {
-      endQuiz();
-      return;
-    }
+    if (quizState.total >= MAX_QUESTIONS) { endQuiz(); return; }
     fetchQuestion();
   };
 
   function endQuiz() {
     document.getElementById('quizActive').style.display = 'none';
     document.getElementById('quizEnd').style.display = 'block';
-
     const pct = Math.round((quizState.correct / quizState.total) * 100);
     let emoji, title;
-
     if (pct >= 90) { emoji = '🏆'; title = '¡Eres un experto del reciclaje!'; }
     else if (pct >= 70) { emoji = '🌟'; title = '¡Muy bien, casi experto!'; }
     else if (pct >= 50) { emoji = '🌱'; title = '¡Vas por buen camino!'; }
     else { emoji = '📚'; title = '¡Sigue aprendiendo!'; }
-
     document.getElementById('quizEndEmoji').textContent = emoji;
     document.getElementById('quizEndTitle').textContent = title;
     document.getElementById('quizEndMsg').textContent =
       `Acertaste ${quizState.correct} de ${quizState.total} preguntas (${pct}%) · Mejor racha: ${quizState.maxStreak} 🔥`;
-    document.getElementById('quizEndLevel').textContent =
-      `Nivel máximo alcanzado: ${quizState.difficulty} de 5`;
+    document.getElementById('quizEndLevel').textContent = `Nivel máximo alcanzado: ${quizState.difficulty} de 5`;
+  }
+})();
+
+// ============ QUIZ ¿QUÉ TAN VERDE ERES? ============
+(function(){
+  // Preguntas con opciones ponderadas (score 0-4, 4 = más verde)
+  const VERDE_QUESTIONS = [
+    {
+      q: '¿Cómo te transportas habitualmente en tu día a día?',
+      topic: 'transporte',
+      opts: [
+        { t: 'Camino, uso bicicleta o transporte público casi siempre', s: 4 },
+        { t: 'Comparto auto o uso transporte público varias veces a la semana', s: 3 },
+        { t: 'Uso mi auto solo, pero trato de combinar diligencias', s: 2 },
+        { t: 'Uso mi auto solo para casi todo', s: 1 }
+      ]
+    },
+    {
+      q: '¿Qué tan seguido separas tu basura en casa?',
+      topic: 'separacion',
+      opts: [
+        { t: 'Siempre — orgánico, reciclable e inorgánico, perfectamente separados', s: 4 },
+        { t: 'Casi siempre, separo al menos PET, papel y aluminio', s: 3 },
+        { t: 'A veces, cuando me acuerdo o tengo tiempo', s: 2 },
+        { t: 'Nunca, todo va en la misma bolsa', s: 1 }
+      ]
+    },
+    {
+      q: '¿Qué haces con tus envases de PET, vidrio y latas?',
+      topic: 'reciclaje_envases',
+      opts: [
+        { t: 'Los llevo a un centro de reciclaje o los vendo', s: 4 },
+        { t: 'Los reúno y los doy a alguien que los recicle', s: 3 },
+        { t: 'A veces los reciclo, a veces no', s: 2 },
+        { t: 'Los tiro a la basura común', s: 1 }
+      ]
+    },
+    {
+      q: '¿Cómo manejas el consumo de agua y electricidad en tu hogar?',
+      topic: 'consumo_energia',
+      opts: [
+        { t: 'Uso focos LED, desconecto aparatos y cuido el agua activamente', s: 4 },
+        { t: 'Tengo focos ahorradores y trato de no desperdiciar', s: 3 },
+        { t: 'No le pongo mucha atención, pero no exagero', s: 2 },
+        { t: 'Honestamente nunca lo pienso', s: 1 }
+      ]
+    },
+    {
+      q: '¿Qué tan seguido usas productos desechables (vasos, popotes, bolsas plásticas)?',
+      topic: 'desechables',
+      opts: [
+        { t: 'Casi nunca — uso termo, bolsas reutilizables y popote propio', s: 4 },
+        { t: 'A veces, pero trato de reducirlos cuando puedo', s: 3 },
+        { t: 'Frecuentemente, son prácticos para el día a día', s: 2 },
+        { t: 'Todo el tiempo, casi todo lo que consumo es desechable', s: 1 }
+      ]
+    },
+    {
+      q: '¿Qué haces con la ropa, electrónicos o muebles que ya no usas?',
+      topic: 'reutilizacion',
+      opts: [
+        { t: 'Los dono, regalo o vendo de segunda mano', s: 4 },
+        { t: 'Los guardo o los reutilizo en otra cosa', s: 3 },
+        { t: 'A veces los dono, a veces los tiro', s: 2 },
+        { t: 'Los tiro a la basura cuando ya no sirven', s: 1 }
+      ]
+    }
+  ];
+
+  let vqState = { current: 0, answers: [] };
+
+  window.startVerdeQuiz = function() {
+    vqState = { current: 0, answers: [] };
+    document.getElementById('vqStart').style.display = 'none';
+    document.getElementById('vqResult').style.display = 'none';
+    document.getElementById('vqAnalyzing').style.display = 'none';
+    document.getElementById('vqActive').style.display = 'block';
+    renderVQuestion();
+  };
+
+  function renderVQuestion() {
+    const q = VERDE_QUESTIONS[vqState.current];
+    document.getElementById('vqProgress').textContent = `Pregunta ${vqState.current+1} de ${VERDE_QUESTIONS.length}`;
+    document.getElementById('vqBarFill').style.width = ((vqState.current+1)/VERDE_QUESTIONS.length*100) + '%';
+    document.getElementById('vqText').textContent = q.q;
+    const container = document.getElementById('vqOptions');
+    container.innerHTML = '';
+    const letters = ['A','B','C','D'];
+    q.opts.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt.t}</span>`;
+      btn.onclick = () => {
+        vqState.answers.push({ topic: q.topic, question: q.q, choice: opt.t, score: opt.s });
+        vqState.current++;
+        if (vqState.current >= VERDE_QUESTIONS.length) finishVerdeQuiz();
+        else renderVQuestion();
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  async function finishVerdeQuiz() {
+    document.getElementById('vqActive').style.display = 'none';
+    document.getElementById('vqAnalyzing').style.display = 'block';
+
+    // Score base: suma de puntos / máximo * 100
+    const totalScore = vqState.answers.reduce((s, a) => s + a.score, 0);
+    const maxScore = VERDE_QUESTIONS.length * 4;
+    const baseScore = Math.round((totalScore / maxScore) * 100);
+
+    // Llamar a IA para análisis personalizado
+    let analysisData = null;
+    try {
+      const r = await fetch('/.netlify/functions/quiz-verde', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers: vqState.answers, baseScore })
+      });
+      if (!r.ok) throw new Error('HTTP '+r.status);
+      analysisData = await r.json();
+    } catch (err) {
+      console.error(err);
+      analysisData = fallbackAnalysis(baseScore);
+    }
+
+    showVerdeResult(baseScore, analysisData);
+  }
+
+  function fallbackAnalysis(score) {
+    if (score >= 75) return {
+      analysis: 'Tienes hábitos verdes muy sólidos. Tu estilo de vida ya genera un impacto positivo notable en el medio ambiente y en San Luis Potosí.',
+      tips: [
+        'Comparte tus hábitos con amigos y familia para multiplicar el impacto',
+        'Considera unirte a campañas comunitarias de reforestación en SLP',
+        'Lleva un registro de tu reciclaje en RecyclaSLP para seguir mejorando'
+      ]
+    };
+    if (score >= 50) return {
+      analysis: 'Vas por buen camino. Tienes algunos hábitos verdes establecidos pero hay áreas con margen de mejora.',
+      tips: [
+        'Empieza separando al menos PET, papel y aluminio en casa',
+        'Sustituye productos desechables por reutilizables uno a uno',
+        'Visita el módulo CIEA de SLP para reciclar electrónicos y pilas'
+      ]
+    };
+    return {
+      analysis: 'Estás empezando tu camino verde. Pequeños cambios diarios pueden generar grandes diferencias para tu bolsillo y el planeta.',
+      tips: [
+        'Comienza con un solo hábito: separa el PET por una semana',
+        'Lleva una bolsa reutilizable cuando vayas al súper',
+        'Apaga aparatos electrónicos cuando no los uses'
+      ]
+    };
+  }
+
+  function showVerdeResult(score, data) {
+    document.getElementById('vqAnalyzing').style.display = 'none';
+    document.getElementById('vqResult').style.display = 'block';
+
+    // Animar score circular
+    const circle = document.getElementById('vqScoreCircle');
+    const circumference = 2 * Math.PI * 70;
+    const offset = circumference - (score/100) * circumference;
+    setTimeout(() => { circle.style.strokeDashoffset = offset; }, 100);
+
+    // Color del score según nivel
+    let strokeColor = '#52b788';
+    if (score < 40) strokeColor = '#dc2626';
+    else if (score < 60) strokeColor = '#d4a853';
+    else if (score < 80) strokeColor = '#52b788';
+    else strokeColor = '#2d6a4f';
+    circle.setAttribute('stroke', strokeColor);
+
+    // Animar número
+    let n = 0;
+    const step = Math.max(1, Math.round(score/40));
+    const interval = setInterval(() => {
+      n += step;
+      if (n >= score) { n = score; clearInterval(interval); }
+      document.getElementById('vqScoreNum').textContent = n;
+    }, 30);
+
+    // Badge de nivel
+    const badge = document.getElementById('vqLevelBadge');
+    let levelText, levelEmoji, levelBg, levelColor, levelBorder;
+    if (score >= 80) {
+      levelText = 'Eco-Guardián'; levelEmoji = '🌳';
+      levelBg = 'rgba(45,106,79,.15)'; levelColor = 'var(--verde)'; levelBorder = 'rgba(45,106,79,.3)';
+    } else if (score >= 60) {
+      levelText = 'Verde Comprometido'; levelEmoji = '🌿';
+      levelBg = 'rgba(82,183,136,.15)'; levelColor = 'var(--verde)'; levelBorder = 'rgba(82,183,136,.3)';
+    } else if (score >= 40) {
+      levelText = 'En Transición'; levelEmoji = '🌱';
+      levelBg = 'rgba(212,168,83,.15)'; levelColor = '#8b6914'; levelBorder = 'rgba(212,168,83,.3)';
+    } else {
+      levelText = 'Empezando'; levelEmoji = '🌾';
+      levelBg = 'rgba(220,38,38,.1)'; levelColor = '#dc2626'; levelBorder = 'rgba(220,38,38,.3)';
+    }
+    badge.textContent = `${levelEmoji} ${levelText}`;
+    badge.style.background = levelBg;
+    badge.style.color = levelColor;
+    badge.style.borderColor = levelBorder;
+
+    // Análisis IA
+    document.getElementById('vqAnalysis').textContent = data.analysis || '';
+
+    // Tips
+    const tipsList = document.getElementById('vqTips');
+    tipsList.innerHTML = '';
+    (data.tips || []).forEach((tip, i) => {
+      const li = document.createElement('li');
+      li.className = 'vq-tip';
+      li.innerHTML = `<span class="vq-tip-num">${i+1}</span><span>${tip}</span>`;
+      tipsList.appendChild(li);
+    });
   }
 })();
 </script>
@@ -1456,7 +1939,6 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="footer-copy">© 2025 RecyclaSLP — Hecho con 💚 para San Luis Potosí</div>
 </footer>
 <script type="module">
-  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
@@ -1466,11 +1948,7 @@ import { getFirestore, doc, setDoc }
 from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 import { collection, getDocs } 
 from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyBvRUsiJGm3_GmpEen2VgQrDD2djBn2YmA",
     authDomain: "reciclaje-proyecto-progra.firebaseapp.com",
@@ -1481,34 +1959,30 @@ from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
     measurementId: "G-TX16Z5DH7S"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
   const db = getFirestore(app);
 
   window.firebaseRegister = async (name, email, password) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await setDoc(doc(db, "users", email), {
+      name, email, kg: 0, money: 0
+    });
+  };
 
-  await setDoc(doc(db, "users", email), {
-    name, email, kg: 0, money: 0
-  });
-};
+  window.firebaseLogin = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password);
+  };
 
-window.firebaseLogin = async (email, password) => {
-  await signInWithEmailAndPassword(auth, email, password);
-};
-
-window.getAllUsers = async () => {
-  const querySnapshot = await getDocs(collection(db, "users"));
-  let list = [];
-
-  querySnapshot.forEach((doc) => {
-    list.push(doc.data());
-  });
-
-  return list;
-};
+  window.getAllUsers = async () => {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    let list = [];
+    querySnapshot.forEach((doc) => {
+      list.push(doc.data());
+    });
+    return list;
+  };
 </script>
 
 <script>
@@ -1517,9 +1991,34 @@ let currentUser = null;
 let users = JSON.parse(localStorage.getItem('recyclaSLP_users') || '{}');
 let currentTab = 'signup';
 
-// ====== DEMO RANKING DATA ======
-const demoRanking = [
-];
+const demoRanking = [];
+
+// ====== UTILIDADES DE NAVEGACIÓN ======
+function goToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openEcoBot() {
+  goToSection('inicio'); // dummy scroll para asegurar que el chat esté visible
+  setTimeout(() => {
+    const box = document.getElementById('chatBox');
+    const tip = document.getElementById('chatTip');
+    if (box && !box.classList.contains('show')) {
+      box.classList.add('show');
+      const msgs = document.getElementById('chatMsgs');
+      if (msgs && !msgs.children.length) {
+        const d = document.createElement('div');
+        d.className = 'cmsg bot';
+        d.textContent = '¡Hola! 🌱 Soy EcoBot. Pregúntame lo que quieras sobre reciclaje: cómo separar PET, qué hacer con pilas, ideas para reutilizar... ¡Te ayudo!';
+        msgs.appendChild(d);
+      }
+    }
+    if (tip) tip.classList.remove('show');
+    const btn = document.getElementById('chatBtn');
+    if (btn) btn.classList.remove('pulse');
+  }, 300);
+}
 
 // ====== MODAL ======
 function openModal(tab) {
@@ -1557,50 +2056,26 @@ function handleSignup() {
   if (pass.length < 6) { showErr('err-pass'); valid = false; }
   if (!valid) return;
   firebaseRegister(name, email, pass)
-  .then(() => {
-    loginUser({ name, email, kg: 0, money: 0 });
-  })
-  .catch(err => {
-    alert(err.message);
-  });
+  .then(() => { loginUser({ name, email, kg: 0, money: 0 }); })
+  .catch(err => { alert(err.message); });
 }
 
 function handleLogin() {
    clearErrors();
-
   const email = document.getElementById('l-email').value.trim();
   const pass = document.getElementById('l-pass').value;
-
   let valid = true;
-
-  if (!email || !email.includes('@')) { 
-    showErr('err-lemail'); 
-    valid = false; 
-  }
-
-  if (!pass) { 
-    showErr('err-lpass'); 
-    valid = false; 
-  }
-
+  if (!email || !email.includes('@')) { showErr('err-lemail'); valid = false; }
+  if (!pass) { showErr('err-lpass'); valid = false; }
   if (!valid) return;
-
-  // LOGIN CON FIREBASE
   firebaseLogin(email, pass)
-    .then(() => {
-      // Simulación para UI (temporal)
-      loginUser({
-        name: email,
-        email: email,
-        kg: 0,
-        money: 0
-      });
-    })
+    .then(() => { loginUser({ name: email, email: email, kg: 0, money: 0 }); })
     .catch(() => {
       document.getElementById('err-lpass').textContent = 'Correo o contraseña incorrectos';
       showErr('err-lpass');
     });
-  }
+}
+
 function loginUser(user) {
   currentUser = user;
   closeModal();
@@ -1614,14 +2089,16 @@ function updateUI() {
     document.getElementById('userPanel').classList.remove('show');
     document.getElementById('loggedStats').style.display = 'none';
     document.getElementById('guestStats').style.display = 'block';
+    document.getElementById('guestHint').style.display = 'block';
     return;
   }
   document.getElementById('authBtns').style.display = 'none';
   document.getElementById('userPanel').classList.add('show');
   document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
   document.getElementById('userAvatar').textContent = currentUser.name[0].toUpperCase();
-  document.getElementById('loggedStats').style.display = 'block';
+  document.getElementById('loggedStats').style.display = 'flex';
   document.getElementById('guestStats').style.display = 'none';
+  document.getElementById('guestHint').style.display = 'none';
   refreshMyStats();
   renderRanking();
 }
@@ -1632,7 +2109,6 @@ function refreshMyStats() {
   document.getElementById('myMoney').textContent = '$' + currentUser.money.toFixed(0) + ' MXN';
   const trees = Math.floor(currentUser.kg / 30);
   document.getElementById('myTrees').textContent = '🌳 ' + trees;
-  // rank
   const allUsers = buildAllUsers();
   const sorted = allUsers.sort((a,b) => b.kg - a.kg);
   const pos = sorted.findIndex(u => u.email === currentUser.email) + 1;
@@ -1641,13 +2117,17 @@ function refreshMyStats() {
 
 function buildAllUsers() {
   const u = Object.values(users).map(u => ({...u}));
-  // merge demo
   const result = [...demoRanking.map((d,i) => ({name:d.name,colonia:d.colonia,kg:d.kg,money:d.kg*3,emoji:d.emoji,demo:true})), ...u];
   return result;
 }
 
 function addRecycling() {
-  if (!currentUser) { openModal('login'); return; }
+  // Si no hay usuario, redirigir a registro/login
+  if (!currentUser) {
+    showToast('🔒 Crea una cuenta para registrar tu reciclaje');
+    setTimeout(() => openModal('signup'), 600);
+    return;
+  }
   const kg = parseFloat(document.getElementById('kgInput').value);
   const rate = parseFloat(document.getElementById('matInput').value);
   if (!kg || kg <= 0) { showToast('⚠️ Ingresa los kilogramos'); return; }
@@ -1665,56 +2145,61 @@ function addRecycling() {
 const medals = ['🥇','🥈','🥉'];
 
 async function renderRanking() {
-  const firebaseUsers = await window.getAllUsers();
+  let firebaseUsers = [];
+  try {
+    if (window.getAllUsers) firebaseUsers = await window.getAllUsers();
+  } catch (e) {
+    console.warn('Firebase no disponible:', e);
+  }
 
   const all = [
     ...demoRanking.map(d => ({
-      name: d.name,
-      colonia: d.colonia,
-      kg: d.kg,
-      money: d.kg * 3,
-      emoji: d.emoji,
-      demo: true
+      name: d.name, colonia: d.colonia, kg: d.kg,
+      money: d.kg * 3, emoji: d.emoji, demo: true
     })),
     ...firebaseUsers
   ];
 
   const sorted = all.sort((a,b) => b.kg - a.kg).slice(0, 10);
+  const list = document.getElementById('rankingList');
+  list.innerHTML = '';
 
-  const list = document.getElementById('rankingList'); // 👈 FALTABA
-  list.innerHTML = ''; // 👈 limpiar antes de renderizar
+  if (sorted.length === 0) {
+    list.innerHTML = `
+      <div style="background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.15);border-radius:16px;padding:2rem;text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:.75rem">🌱</div>
+        <p style="color:rgba(255,255,255,0.6);font-size:.95rem;margin-bottom:1rem">Aún no hay nadie en el ranking.</p>
+        <p style="color:rgba(255,255,255,0.4);font-size:.85rem">¡Sé el primer potosino verde en aparecer aquí!</p>
+      </div>
+    `;
+    return;
+  }
 
   sorted.forEach((u, i) => {
     const isMe = currentUser && u.email === currentUser.email;
-
     const item = document.createElement('div');
     item.className = 'ranking-item';
-
     if (isMe) item.style.borderColor = 'rgba(82,183,136,0.4)';
-
     const posClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
-
     item.innerHTML = `
       <div class="rank-pos ${posClass}">${i < 3 ? medals[i] : '#'+(i+1)}</div>
-      <div class="rank-avatar">${u.emoji || u.name[0]}</div>
+      <div class="rank-avatar">${u.emoji || (u.name||'?')[0]}</div>
       <div class="rank-info">
-        <div class="rank-name">${u.name}${isMe ? ' <span style="color:var(--verde-lima);font-size:.75rem">(tú)</span>' : ''}</div>
+        <div class="rank-name">${u.name || 'Anónimo'}${isMe ? ' <span style="color:var(--verde-lima);font-size:.75rem">(tú)</span>' : ''}</div>
         <div class="rank-detail">${u.colonia || 'SLP'}</div>
       </div>
       <div style="text-align:right">
         <div class="rank-amount">$${(u.money || u.kg*3).toFixed(0)}</div>
-        <div class="rank-kg">${u.kg.toFixed(1)} kg</div>
+        <div class="rank-kg">${(u.kg||0).toFixed(1)} kg</div>
       </div>
     `;
-
     list.appendChild(item);
   });
 }
 
-
 // ====== UTILS ======
 function showErr(id) { document.getElementById(id).classList.add('show'); }
-function clearErrors() { document.querySelectorAll('.error-msg').forEach(e => { e.classList.remove('show'); e.textContent = e.textContent; }); }
+function clearErrors() { document.querySelectorAll('.error-msg').forEach(e => { e.classList.remove('show'); }); }
 
 let toastTimer;
 function showToast(msg) {
@@ -1839,7 +2324,6 @@ updateUI();
       loading.textContent='⚠️ Error al conectar con el servidor. Revisa la consola.';
     }
   };
-  // Tip flotante: aparece a los 3s, se oculta al abrir el chat o al cerrarlo
   const tip=document.getElementById('chatTip'),
         tipClose=document.getElementById('chatTipClose');
   let tipShown=sessionStorage.getItem('ecobotTipClosed')==='1';
@@ -1847,7 +2331,6 @@ updateUI();
     if(tipShown||box.classList.contains('show'))return;
     tip.classList.add('show');
     btn.classList.add('pulse');
-    // Se auto-oculta después de 12s si el usuario no interactúa
     setTimeout(()=>{
       tip.classList.remove('show');
       btn.classList.remove('pulse');
@@ -1861,7 +2344,6 @@ updateUI();
     tipShown=true;
     sessionStorage.setItem('ecobotTipClosed','1');
   };
-  // Al abrir el chat, ocultar el tip y detener el pulso
   const origClick=btn.onclick;
   btn.onclick=function(){
     tip.classList.remove('show');

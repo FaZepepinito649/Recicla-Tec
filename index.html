@@ -960,7 +960,11 @@ let visionMarkers = [];
 let currentMapView = 'hoy';
 
 document.addEventListener('DOMContentLoaded', function() {
-  const map = L.map('map').setView([22.1565, -100.9855], 12);
+ const map = L.map('map', {
+  minZoom: 11,
+  maxBounds: [[21.85, -101.35], [22.50, -100.65]],
+  maxBoundsViscosity: 0.85
+}).setView([22.1565, -100.9855], 12);
   mapInstance = map;
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -2246,12 +2250,12 @@ async function renderRanking() {
         <div class="rank-detail">${u.colonia || 'SLP'}</div>
       </div>
       <div style="text-align:right;display:flex;align-items:center;gap:.25rem">
-        <div>
-          <div class="rank-amount">$${(u.money || (u.kg||0)*3).toFixed(0)}</div>
-          <div class="rank-kg">${(u.kg||0).toFixed(1)} kg</div>
-        </div>
-        ${deleteBtn}
-      </div>
+    <div>
+      <div class="rank-amount">${(u.kg||0).toFixed(1)} kg</div>
+      <div class="rank-kg">$${(u.money || (u.kg||0)*3).toFixed(0)} MXN</div>
+    </div>
+    ${deleteBtn}
+  </div>
     `;
     list.appendChild(item);
   });

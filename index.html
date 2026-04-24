@@ -265,6 +265,20 @@ section { padding: 5rem 4rem; }
 .login-cta { margin-top: 1.5rem; text-align: center; }
 .login-cta p { font-size: .85rem; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
 
+/* FIX: Select y input en sección oscura */
+#matInput, #kgInput {
+  color-scheme: dark;
+}
+#matInput option {
+  background-color: var(--oscuro);
+  color: white;
+  padding: .5rem;
+}
+#matInput:focus, #kgInput:focus {
+  border-color: var(--verde-claro);
+  background: rgba(82,183,136,0.1);
+}
+
 /* GRACIAS */
 #gracias {
   background: linear-gradient(135deg, rgba(45,106,79,0.06) 0%, rgba(82,183,136,0.08) 50%, rgba(212,168,83,0.05) 100%);
@@ -539,6 +553,7 @@ footer .footer-links a:hover { color: var(--verde-lima); }
     </div>
   </div>
 </section>
+
 <!-- NUESTRA VISIÓN -->
 <section id="vision" style="background: linear-gradient(135deg, #1a2e1f 0%, #2d6a4f 100%); color: white; position: relative; overflow: hidden;">
   <div style="position:absolute;inset:0;opacity:.05">
@@ -553,7 +568,6 @@ footer .footer-links a:hover { color: var(--verde-lima); }
     <div class="section-label" style="color:var(--tierra-claro);justify-content:center;display:flex">🌍 Propósito</div>
     <h2 class="section-title" style="color:white;text-align:center">Nuestra Visión</h2>
 
-    <!-- POR QUÉ -->
     <p style="text-align:center;font-size:1.15rem;color:rgba(255,255,255,0.8);line-height:1.9;margin-bottom:3rem;max-width:720px;margin-left:auto;margin-right:auto">
       San Luis Potosí genera más de <strong style="color:var(--verde-lima)">1,000 toneladas</strong> de basura al día.
       Gran parte de esos residuos podrían tener una segunda vida, pero muchos potosinos no saben
@@ -564,7 +578,6 @@ footer .footer-links a:hover { color: var(--verde-lima); }
       sino también una oportunidad económica para las familias potosinas.
     </p>
 
-    <!-- BENEFICIOS - AHORA CLICKABLES -->
     <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;text-align:center;margin-bottom:.75rem;color:var(--verde-lima)">
       Beneficios de ReciclaSLP
     </h3>
@@ -602,7 +615,6 @@ footer .footer-links a:hover { color: var(--verde-lima); }
       </div>
     </div>
 
-    <!-- PROTOTIPO -->
     <div style="background:rgba(212,168,83,0.12);border:1.5px solid rgba(212,168,83,0.3);border-radius:24px;padding:2rem 2.5rem;margin-bottom:2.5rem" class="fade-in">
       <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem">
         <span style="font-size:1.6rem">🚧</span>
@@ -646,7 +658,6 @@ footer .footer-links a:hover { color: var(--verde-lima); }
       </div>
     </div>
 
-    <!-- EQUIPO TECH4GOOD -->
     <div style="background:linear-gradient(135deg,rgba(82,183,136,0.12),rgba(149,213,178,0.06));border:1.5px solid rgba(149,213,178,0.3);border-radius:24px;padding:2rem 2.5rem;margin-bottom:2.5rem" class="fade-in">
       <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap">
         <span style="font-size:1.6rem">🎓</span>
@@ -710,6 +721,7 @@ footer .footer-links a:hover { color: var(--verde-lima); }
     </p>
   </div>
 </section>
+
 <!-- RECICLADORAS -->
 <section id="recicladoras">
   <div class="section-label">♻️ Directorio</div>
@@ -857,13 +869,13 @@ footer .footer-links a:hover { color: var(--verde-lima); }
 
   </div>
 </section>
+
 <!-- MAPA INTERACTIVO -->
 <section id="mapa" style="background: white;">
   <div class="section-label">🗺️ Ubicaciones</div>
   <h2 class="section-title">Mapa Interactivo de Reciclaje</h2>
   <p class="section-sub">Explora todas las recicladoras y programas activos en San Luis Potosí, o visualiza nuestra propuesta de un sistema Pfand para la ciudad.</p>
 
-  <!-- TOGGLE HOY / VISIÓN -->
   <div style="display:flex;background:var(--crema);border:1.5px solid rgba(82,183,136,0.2);border-radius:50px;padding:.3rem;width:fit-content;margin-bottom:1.5rem;box-shadow:var(--sombra)" class="fade-in">
     <button class="map-view-btn active" data-view="hoy" onclick="setMapView('hoy')">
       📍 Hoy
@@ -873,7 +885,6 @@ footer .footer-links a:hover { color: var(--verde-lima); }
     </button>
   </div>
 
-  <!-- BANNER VISIÓN PFAND -->
   <div id="visionBanner" style="display:none;background:linear-gradient(135deg,rgba(212,168,83,0.12),rgba(149,213,178,0.08));border:1.5px solid rgba(212,168,83,0.3);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
     <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
       <div style="font-size:2rem;flex-shrink:0">🇩🇪</div>
@@ -891,7 +902,6 @@ footer .footer-links a:hover { color: var(--verde-lima); }
     </div>
   </div>
 
-  <!-- Filtros (solo visibles en vista HOY) -->
   <div id="hoyFilters" style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem" class="fade-in">
     <button class="map-filter active" data-filter="all">Todos 📍</button>
     <button class="map-filter" data-filter="recicladora">♻️ Recicladoras</button>
@@ -958,7 +968,6 @@ document.addEventListener('DOMContentLoaded', function() {
     maxZoom: 19
   }).addTo(map);
 
-  // Iconos personalizados por tipo
   const makeIcon = (emoji, color, size) => L.divIcon({
     html: `<div style="background:${color};width:${size||40}px;height:${size||40}px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.25);border:2px solid white"><span style="transform:rotate(45deg);font-size:${size?Math.round(size*0.5)+'px':'1.1rem'}">${emoji}</span></div>`,
     className: '',
@@ -972,7 +981,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const iconPET = makeIcon('🥤', '#52b788');
   const iconPfand = makeIcon('♻️', '#d4a853', 32);
 
-  // ================= UBICACIONES HOY =================
   const ubicaciones = [
     { tipo: 'recicladora', icon: iconRecicladora, lat: 22.1420, lng: -100.9780,
       nombre: 'MRS — Reciclaje y Residuos', direccion: 'Av. Constitución 2356, Col. Simón Díaz',
@@ -1025,64 +1033,49 @@ document.addEventListener('DOMContentLoaded', function() {
     hoyMarkers.push(marker);
   });
 
-  // ================= UBICACIONES VISIÓN (OXXO + FARMACIAS GDL) =================
-  // Coordenadas distribuidas por la zona metropolitana de SLP — representativas de la red actual
-  // de OXXO y Farmacias Guadalajara para visualizar el sistema Pfand.
   const depositos = [
-    // Centro y alrededores
     { tipo:'oxxo', lat:22.1525, lng:-100.9785, nombre:'OXXO Centro Histórico', dir:'Av. Carranza 350' },
     { tipo:'oxxo', lat:22.1490, lng:-100.9820, nombre:'OXXO Independencia', dir:'Independencia 745' },
     { tipo:'oxxo', lat:22.1565, lng:-100.9760, nombre:'OXXO Plaza de Armas', dir:'Av. Universidad' },
     { tipo:'farmgdl', lat:22.1510, lng:-100.9810, nombre:'Farmacia Guadalajara Centro', dir:'Madero 220' },
     { tipo:'farmgdl', lat:22.1550, lng:-100.9750, nombre:'Farmacia Guadalajara Hidalgo', dir:'Hidalgo 845' },
-    // Lomas
     { tipo:'oxxo', lat:22.1430, lng:-100.9450, nombre:'OXXO Lomas 4ta', dir:'Cordillera del Himalaya 110' },
     { tipo:'oxxo', lat:22.1395, lng:-100.9485, nombre:'OXXO Lomas 3ra', dir:'Sierra Leona 200' },
     { tipo:'oxxo', lat:22.1480, lng:-100.9420, nombre:'OXXO Lomas Country', dir:'Cordillera Karakorum' },
     { tipo:'farmgdl', lat:22.1410, lng:-100.9460, nombre:'Farmacia Guadalajara Lomas', dir:'Salk 305' },
-    // Tangamanga
     { tipo:'oxxo', lat:22.1380, lng:-100.9650, nombre:'OXXO Tangamanga', dir:'Diagonal Sur 320' },
     { tipo:'oxxo', lat:22.1340, lng:-100.9695, nombre:'OXXO Anáhuac', dir:'Av. Cordillera de los Andes' },
     { tipo:'farmgdl', lat:22.1360, lng:-100.9670, nombre:'Farmacia Guadalajara Anáhuac', dir:'Anáhuac 1180' },
-    // Av. Carranza / Universidad
     { tipo:'oxxo', lat:22.1480, lng:-100.9930, nombre:'OXXO Carranza Pte', dir:'Av. Carranza 1450' },
     { tipo:'oxxo', lat:22.1455, lng:-101.0050, nombre:'OXXO La Loma', dir:'Av. Carranza 2350' },
     { tipo:'oxxo', lat:22.1500, lng:-101.0100, nombre:'OXXO Polanco SLP', dir:'Polanco 80' },
     { tipo:'farmgdl', lat:22.1475, lng:-100.9990, nombre:'Farmacia Guadalajara Carranza', dir:'Carranza 1810' },
     { tipo:'farmgdl', lat:22.1450, lng:-101.0080, nombre:'Farmacia Guadalajara Universidad', dir:'Av. Universidad' },
-    // Salvador Nava / Garita
     { tipo:'oxxo', lat:22.1620, lng:-100.9650, nombre:'OXXO Salvador Nava', dir:'Av. Salvador Nava 920' },
     { tipo:'oxxo', lat:22.1595, lng:-100.9580, nombre:'OXXO Garita de Jalisco', dir:'Salvador Nava 1450' },
     { tipo:'farmgdl', lat:22.1610, lng:-100.9620, nombre:'Farmacia Guadalajara S. Nava', dir:'Salvador Nava 1100' },
-    // Norte (Saucito, Himno Nacional)
     { tipo:'oxxo', lat:22.1750, lng:-100.9650, nombre:'OXXO Saucito', dir:'Av. Saucito 220' },
     { tipo:'oxxo', lat:22.1810, lng:-100.9720, nombre:'OXXO Himno Nacional', dir:'Av. Himno Nacional 815' },
     { tipo:'oxxo', lat:22.1690, lng:-100.9870, nombre:'OXXO Glorieta Juárez', dir:'Glorieta Juárez' },
     { tipo:'farmgdl', lat:22.1740, lng:-100.9700, nombre:'Farmacia Guadalajara Saucito', dir:'Saucito 350' },
     { tipo:'farmgdl', lat:22.1800, lng:-100.9810, nombre:'Farmacia Guadalajara Industrias', dir:'Av. Industrias' },
-    // Soledad
     { tipo:'oxxo', lat:22.1900, lng:-100.9350, nombre:'OXXO Soledad Centro', dir:'Soledad de G. Sánchez' },
     { tipo:'oxxo', lat:22.1950, lng:-100.9250, nombre:'OXXO Pavón', dir:'Av. San Pedro' },
     { tipo:'oxxo', lat:22.1820, lng:-100.9420, nombre:'OXXO Glorieta Tangamanga', dir:'Glorieta Tangamanga' },
     { tipo:'farmgdl', lat:22.1920, lng:-100.9300, nombre:'Farmacia Guadalajara Soledad', dir:'Av. Valentín Amador' },
-    // Villa Magna / Real del Potosí
     { tipo:'oxxo', lat:22.2050, lng:-100.8950, nombre:'OXXO Villa Magna', dir:'Av. Real de Lomas' },
     { tipo:'oxxo', lat:22.2120, lng:-100.8800, nombre:'OXXO Real del Potosí', dir:'Cam. al Portezuelo' },
     { tipo:'farmgdl', lat:22.2080, lng:-100.8880, nombre:'Farmacia Guadalajara Villa Magna', dir:'Real de Lomas 220' },
-    // Zona Industrial / Sur
     { tipo:'oxxo', lat:22.0980, lng:-100.9450, nombre:'OXXO Zona Industrial', dir:'Eje 100 Pte 200' },
     { tipo:'oxxo', lat:22.1050, lng:-100.9180, nombre:'OXXO Industrias Mexicanas', dir:'Eje 134 Sur' },
     { tipo:'oxxo', lat:22.0900, lng:-100.9080, nombre:'OXXO Bajío', dir:'Eje 128' },
     { tipo:'farmgdl', lat:22.1020, lng:-100.9300, nombre:'Farmacia Guadalajara Industrial', dir:'Av. Industrias' },
-    // Surponiente / La Loma / Burócrata
     { tipo:'oxxo', lat:22.1230, lng:-100.9850, nombre:'OXXO Burócrata', dir:'Av. Murillo Vidaurri' },
     { tipo:'oxxo', lat:22.1180, lng:-100.9920, nombre:'OXXO Tequisquiapan', dir:'Av. Pedro Moreno' },
     { tipo:'oxxo', lat:22.1290, lng:-100.9780, nombre:'OXXO Las Lajas', dir:'Av. Las Lajas' },
     { tipo:'farmgdl', lat:22.1250, lng:-100.9870, nombre:'Farmacia Guadalajara Burócrata', dir:'Murillo Vidaurri 510' },
-    // Poniente extremo
     { tipo:'oxxo', lat:22.1420, lng:-101.0250, nombre:'OXXO Cerro de San Pedro', dir:'Carr. al Cerro' },
     { tipo:'oxxo', lat:22.1380, lng:-101.0180, nombre:'OXXO Pedregal', dir:'Pedregal del Bosque' },
-    // Otros puntos estratégicos
     { tipo:'oxxo', lat:22.1655, lng:-101.0100, nombre:'OXXO Plaza San Luis', dir:'Av. Benito Juárez 1290' },
     { tipo:'oxxo', lat:22.1720, lng:-100.9510, nombre:'OXXO Cordillera Occidental', dir:'Cordillera Occidental' },
     { tipo:'oxxo', lat:22.1605, lng:-100.9420, nombre:'OXXO Granadina', dir:'Av. La Granadina' },
@@ -1107,11 +1100,9 @@ document.addEventListener('DOMContentLoaded', function() {
     visionMarkers.push(marker);
   });
 
-  // Inicializar contador
   const visionCountEl = document.getElementById('visionCount');
   if (visionCountEl) visionCountEl.textContent = depositos.length;
 
-  // Filtros (solo en modo HOY)
   document.querySelectorAll('.map-filter').forEach(btn => {
     btn.addEventListener('click', function() {
       if (currentMapView !== 'hoy') return;
@@ -1126,22 +1117,17 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Cambio entre vistas
 function setMapView(view) {
   currentMapView = view;
   if (!mapInstance) return;
-
-  // Actualizar botones
   document.querySelectorAll('.map-view-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.view === view);
   });
-
   if (view === 'hoy') {
     visionMarkers.forEach(m => mapInstance.removeLayer(m));
     hoyMarkers.forEach(m => m.addTo(mapInstance));
     document.getElementById('hoyFilters').style.display = 'flex';
     document.getElementById('visionBanner').style.display = 'none';
-    // Reset filter
     document.querySelectorAll('.map-filter').forEach((b,i)=>b.classList.toggle('active',i===0));
   } else {
     hoyMarkers.forEach(m => mapInstance.removeLayer(m));
@@ -1288,7 +1274,6 @@ function setMapView(view) {
     <div class="ranking-sidebar">
       <div class="sidebar-title">📊 Mi progreso</div>
 
-      <!-- Stats solo para usuarios logueados -->
       <div class="my-stats" id="loggedStats" style="display:none">
         <div class="stat-row">
           <span class="stat-label">Kg reciclados</span>
@@ -1308,7 +1293,6 @@ function setMapView(view) {
         </div>
       </div>
 
-      <!-- Mensaje para invitados -->
       <div id="guestStats" style="text-align:center;padding:.5rem 0 1.25rem">
         <div style="font-size:2.5rem;margin-bottom:.5rem">🌱</div>
         <p style="color:rgba(255,255,255,0.55);font-size:.85rem;line-height:1.5">
@@ -1316,7 +1300,6 @@ function setMapView(view) {
         </p>
       </div>
 
-      <!-- Formulario de registro de reciclaje (siempre visible) -->
       <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08)">
         <label style="font-size:.82rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:.5rem">
           ➕ Registrar reciclaje (kg)
@@ -1325,12 +1308,12 @@ function setMapView(view) {
           <input type="number" id="kgInput" placeholder="ej. 5" min="0" step="0.5"
             style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none">
           <select id="matInput"
-            style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none">
-            <option value="2">PET ($2/kg)</option>
-            <option value="2">Papel ($2/kg)</option>
-            <option value="4">Chatarra ($4/kg)</option>
-            <option value="25">Aluminio ($25/kg)</option>
-            <option value="100">Cobre ($100/kg)</option>
+            style="flex:1;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(45,106,79,0.8);color:white;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none">
+            <option value="2" style="background:#1a2e1f;color:white">PET ($2/kg)</option>
+            <option value="2" style="background:#1a2e1f;color:white">Papel ($2/kg)</option>
+            <option value="4" style="background:#1a2e1f;color:white">Chatarra ($4/kg)</option>
+            <option value="25" style="background:#1a2e1f;color:white">Aluminio ($25/kg)</option>
+            <option value="100" style="background:#1a2e1f;color:white">Cobre ($100/kg)</option>
           </select>
         </div>
         <button onclick="addRecycling()" id="recycleBtn"
@@ -1346,7 +1329,7 @@ function setMapView(view) {
   </div>
 </section>
 
-<!-- QUIZ - AHORA CON DOS MODOS -->
+<!-- QUIZ -->
 <section id="quiz" style="background: var(--crema);">
   <div style="max-width:700px;margin:0 auto;text-align:center">
     <div class="section-label" style="justify-content:center">🧠 Desafíos</div>
@@ -1355,7 +1338,6 @@ function setMapView(view) {
       Dos quizzes potenciados por inteligencia artificial: uno para probar tus conocimientos y otro para descubrir qué tan verde es tu estilo de vida.
     </p>
 
-    <!-- TABS DE QUIZ -->
     <div style="display:flex;gap:.5rem;margin:0 auto 2rem;background:white;border:1.5px solid rgba(82,183,136,.2);border-radius:50px;padding:.3rem;width:fit-content;box-shadow:var(--sombra)" class="fade-in">
       <button class="quiz-mode-btn active" data-mode="conocimientos" onclick="switchQuizMode('conocimientos')">
         📚 Conocimientos
@@ -1365,7 +1347,6 @@ function setMapView(view) {
       </button>
     </div>
 
-    <!-- ============ QUIZ DE CONOCIMIENTOS ============ -->
     <div id="quizConocimientos">
       <div id="quizCard" class="fade-in" style="background:white;border-radius:24px;padding:2rem;border:1.5px solid rgba(82,183,136,0.2);box-shadow:var(--sombra);text-align:left">
 
@@ -1427,11 +1408,9 @@ function setMapView(view) {
       </div>
     </div>
 
-    <!-- ============ QUIZ ¿QUÉ TAN VERDE ERES? ============ -->
     <div id="quizVerde" style="display:none">
       <div class="fade-in" style="background:white;border-radius:24px;padding:2rem;border:1.5px solid rgba(82,183,136,0.2);box-shadow:var(--sombra);text-align:left">
 
-        <!-- Estado inicial -->
         <div id="vqStart" style="text-align:center;padding:2rem 0">
           <div style="font-size:4rem;margin-bottom:1rem">🌍💚</div>
           <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oscuro);margin-bottom:.5rem">¿Qué tan verde es tu estilo de vida?</h3>
@@ -1447,7 +1426,6 @@ function setMapView(view) {
           <button onclick="startVerdeQuiz()" class="btn-primary" style="margin:0 auto">🌱 Comenzar evaluación</button>
         </div>
 
-        <!-- Pregunta activa -->
         <div id="vqActive" style="display:none">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
             <span style="font-size:.85rem;color:var(--gris);font-weight:600" id="vqProgress">Pregunta 1 de 6</span>
@@ -1455,21 +1433,17 @@ function setMapView(view) {
               <div id="vqBarFill" style="height:100%;background:var(--verde-claro);width:16%;transition:width .4s"></div>
             </div>
           </div>
-
           <p id="vqText" style="font-size:1.1rem;font-weight:700;color:var(--oscuro);line-height:1.6;margin-bottom:1.25rem"></p>
           <div id="vqOptions" style="display:flex;flex-direction:column;gap:.6rem"></div>
         </div>
 
-        <!-- Loading análisis -->
         <div id="vqAnalyzing" style="display:none;text-align:center;padding:3rem 0">
           <div style="font-size:3rem;animation:float 1.5s ease-in-out infinite">🌿</div>
           <p style="color:var(--gris);font-size:1rem;margin-top:1rem;font-weight:600">Analizando tu perfil verde...</p>
           <p style="color:var(--gris);font-size:.85rem;margin-top:.5rem">La IA está preparando consejos personalizados para ti</p>
         </div>
 
-        <!-- Resultado -->
         <div id="vqResult" style="display:none">
-          <!-- Score circular -->
           <div style="text-align:center;margin-bottom:1.5rem">
             <div style="position:relative;width:160px;height:160px;margin:0 auto 1rem">
               <svg width="160" height="160" viewBox="0 0 160 160" style="transform:rotate(-90deg)">
@@ -1486,7 +1460,6 @@ function setMapView(view) {
             <div id="vqLevelBadge" style="display:inline-block;background:rgba(82,183,136,.15);color:var(--verde);padding:.4rem 1.1rem;border-radius:50px;font-weight:700;font-size:.95rem;border:1.5px solid rgba(82,183,136,.3)"></div>
           </div>
 
-          <!-- Análisis IA -->
           <div style="background:linear-gradient(135deg,rgba(82,183,136,.06),rgba(149,213,178,.04));border:1.5px solid rgba(82,183,136,.2);border-radius:18px;padding:1.5rem;margin-bottom:1rem">
             <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
               <span style="font-size:1.25rem">🌿</span>
@@ -1495,7 +1468,6 @@ function setMapView(view) {
             <p id="vqAnalysis" style="font-size:.92rem;line-height:1.7;color:var(--texto)"></p>
           </div>
 
-          <!-- Recomendaciones IA -->
           <div style="background:rgba(212,168,83,.08);border:1.5px solid rgba(212,168,83,.25);border-radius:18px;padding:1.5rem;margin-bottom:1.25rem">
             <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
               <span style="font-size:1.25rem">💡</span>
@@ -1566,7 +1538,6 @@ function setMapView(view) {
 </style>
 
 <script>
-// ============ Cambio entre modos de quiz ============
 function switchQuizMode(mode) {
   document.querySelectorAll('.quiz-mode-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.mode === mode);
@@ -1575,7 +1546,6 @@ function switchQuizMode(mode) {
   document.getElementById('quizVerde').style.display = mode === 'verde' ? 'block' : 'none';
 }
 
-// ============ QUIZ DE CONOCIMIENTOS ============
 (function(){
   let quizState = { difficulty: 1, correct: 0, wrong: 0, streak: 0, maxStreak: 0, topics: [], total: 0 };
   const MAX_QUESTIONS = 10;
@@ -1621,7 +1591,6 @@ function switchQuizMode(mode) {
           previousTopics: quizState.topics.slice(-5).join(', ')
         })
       });
-
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const data = await r.json();
       if (!data.question || !data.options) throw new Error('Formato inválido');
@@ -1709,9 +1678,7 @@ function switchQuizMode(mode) {
   }
 })();
 
-// ============ QUIZ ¿QUÉ TAN VERDE ERES? ============
 (function(){
-  // Preguntas con opciones ponderadas (score 0-4, 4 = más verde)
   const VERDE_QUESTIONS = [
     {
       q: '¿Cómo te transportas habitualmente en tu día a día?',
@@ -1812,12 +1779,10 @@ function switchQuizMode(mode) {
     document.getElementById('vqActive').style.display = 'none';
     document.getElementById('vqAnalyzing').style.display = 'block';
 
-    // Score base: suma de puntos / máximo * 100
     const totalScore = vqState.answers.reduce((s, a) => s + a.score, 0);
     const maxScore = VERDE_QUESTIONS.length * 4;
     const baseScore = Math.round((totalScore / maxScore) * 100);
 
-    // Llamar a IA para análisis personalizado
     let analysisData = null;
     try {
       const r = await fetch('/.netlify/functions/quiz-verde', {
@@ -1866,13 +1831,11 @@ function switchQuizMode(mode) {
     document.getElementById('vqAnalyzing').style.display = 'none';
     document.getElementById('vqResult').style.display = 'block';
 
-    // Animar score circular
     const circle = document.getElementById('vqScoreCircle');
     const circumference = 2 * Math.PI * 70;
     const offset = circumference - (score/100) * circumference;
     setTimeout(() => { circle.style.strokeDashoffset = offset; }, 100);
 
-    // Color del score según nivel
     let strokeColor = '#52b788';
     if (score < 40) strokeColor = '#dc2626';
     else if (score < 60) strokeColor = '#d4a853';
@@ -1880,7 +1843,6 @@ function switchQuizMode(mode) {
     else strokeColor = '#2d6a4f';
     circle.setAttribute('stroke', strokeColor);
 
-    // Animar número
     let n = 0;
     const step = Math.max(1, Math.round(score/40));
     const interval = setInterval(() => {
@@ -1889,7 +1851,6 @@ function switchQuizMode(mode) {
       document.getElementById('vqScoreNum').textContent = n;
     }, 30);
 
-    // Badge de nivel
     const badge = document.getElementById('vqLevelBadge');
     let levelText, levelEmoji, levelBg, levelColor, levelBorder;
     if (score >= 80) {
@@ -1910,10 +1871,8 @@ function switchQuizMode(mode) {
     badge.style.color = levelColor;
     badge.style.borderColor = levelBorder;
 
-    // Análisis IA
     document.getElementById('vqAnalysis').textContent = data.analysis || '';
 
-    // Tips
     const tipsList = document.getElementById('vqTips');
     tipsList.innerHTML = '';
     (data.tips || []).forEach((tip, i) => {
@@ -1925,6 +1884,7 @@ function switchQuizMode(mode) {
   }
 })();
 </script>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Recicla<span>SLP</span></div>
@@ -1938,16 +1898,17 @@ function switchQuizMode(mode) {
   </div>
   <div class="footer-copy">© 2025 RecyclaSLP — Hecho con 💚 para San Luis Potosí</div>
 </footer>
+
+<!-- =====================================================
+     FIREBASE MODULE
+     ===================================================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
-
-import { getFirestore, doc, setDoc } 
-from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-import { collection, getDocs } 
-from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword }
+    from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, updateDoc, deleteDoc, collection, getDocs }
+    from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBvRUsiJGm3_GmpEen2VgQrDD2djBn2YmA",
@@ -1964,10 +1925,10 @@ from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  window.firebaseRegister = async (name, email, password) => {
+  window.firebaseRegister = async (name, email, password, colonia) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, "users", email), {
-      name, email, kg: 0, money: 0
+      name, email, colonia: colonia || 'SLP', kg: 0, money: 0
     });
   };
 
@@ -1983,24 +1944,82 @@ from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
     });
     return list;
   };
+
+  // FIX: Actualizar kg y ganancias en Firebase
+  window.firebaseUpdateKg = async (email, kg, money) => {
+    await updateDoc(doc(db, "users", email), { kg, money });
+  };
+
+  // ADMIN: Eliminar usuario del ranking (solo admin)
+  window.firebaseDeleteUser = async (email) => {
+    await deleteDoc(doc(db, "users", email));
+  };
 </script>
 
+<!-- =====================================================
+     MAIN APP SCRIPT
+     ===================================================== -->
 <script>
+// ====== CONSTANTES ======
+const ADMIN_EMAIL = 'admin@gmail.com';
+
+// ====== FILTRO DE MALAS PALABRAS ======
+const BAD_WORDS = [
+  'pendejo','pendeja','pendej','mierda','cabron','cabrona','cabrones',
+  'puto','puta','putos','putas','joto','jota','verga','vergas',
+  'chingar','chingada','chingado','chinga','chingue','chingon',
+  'culero','culera','pinche','pinches','madres','mames','mamar',
+  'imbecil','estupido','estupida','idiota','idiotas','naco','naca',
+  'nazi','hitler','fuck','fucking','shit','bitch','asshole',
+  'dick','cock','pussy','cunt','nigger','faggot','retard'
+];
+
+function containsProfanity(text) {
+  const normalized = text.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z\s]/g, '');
+  return BAD_WORDS.some(word => normalized.includes(word));
+}
+
+// ====== ADMIN ======
+function isAdmin() {
+  return currentUser && currentUser.email === ADMIN_EMAIL;
+}
+
+async function deleteUserFromRanking(email, name) {
+  if (!isAdmin()) {
+    showToast('🔒 Solo el administrador puede eliminar usuarios');
+    return;
+  }
+  if (email === ADMIN_EMAIL) {
+    showToast('⚠️ No puedes eliminarte a ti mismo');
+    return;
+  }
+  if (!confirm(`¿Eliminar a "${name}" del ranking? Esta acción no se puede deshacer.`)) return;
+  try {
+    await window.firebaseDeleteUser(email);
+    showToast('🗑️ Usuario eliminado del ranking');
+    await renderRanking();
+  } catch (e) {
+    console.error(e);
+    showToast('⚠️ Error al eliminar el usuario');
+  }
+}
+
 // ====== STATE ======
 let currentUser = null;
 let users = JSON.parse(localStorage.getItem('recyclaSLP_users') || '{}');
 let currentTab = 'signup';
-
 const demoRanking = [];
 
-// ====== UTILIDADES DE NAVEGACIÓN ======
+// ====== NAVEGACIÓN ======
 function goToSection(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function openEcoBot() {
-  goToSection('inicio'); // dummy scroll para asegurar que el chat esté visible
+  goToSection('inicio');
   setTimeout(() => {
     const box = document.getElementById('chatBox');
     const tip = document.getElementById('chatTip');
@@ -2051,25 +2070,50 @@ function handleSignup() {
   const pass = document.getElementById('s-pass').value;
   const colonia = document.getElementById('s-colonia').value.trim();
   let valid = true;
-  if (!name) { showErr('err-name'); valid = false; }
+
+  if (!name) {
+    document.getElementById('err-name').textContent = 'Por favor ingresa tu nombre';
+    showErr('err-name');
+    valid = false;
+  } else if (containsProfanity(name)) {
+    document.getElementById('err-name').textContent = 'El nombre contiene palabras inapropiadas';
+    showErr('err-name');
+    valid = false;
+  }
+
   if (!email || !email.includes('@')) { showErr('err-email'); valid = false; }
   if (pass.length < 6) { showErr('err-pass'); valid = false; }
   if (!valid) return;
-  firebaseRegister(name, email, pass)
-  .then(() => { loginUser({ name, email, kg: 0, money: 0 }); })
-  .catch(err => { alert(err.message); });
+
+  firebaseRegister(name, email, pass, colonia)
+    .then(() => { loginUser({ name, email, colonia: colonia || 'SLP', kg: 0, money: 0 }); })
+    .catch(err => { alert(err.message); });
 }
 
 function handleLogin() {
-   clearErrors();
+  clearErrors();
   const email = document.getElementById('l-email').value.trim();
   const pass = document.getElementById('l-pass').value;
   let valid = true;
   if (!email || !email.includes('@')) { showErr('err-lemail'); valid = false; }
   if (!pass) { showErr('err-lpass'); valid = false; }
   if (!valid) return;
+
   firebaseLogin(email, pass)
-    .then(() => { loginUser({ name: email, email: email, kg: 0, money: 0 }); })
+    .then(async () => {
+      // Intentar obtener datos reales de Firebase
+      try {
+        const allUsers = await window.getAllUsers();
+        const userData = allUsers.find(u => u.email === email);
+        if (userData) {
+          loginUser(userData);
+        } else {
+          loginUser({ name: email, email: email, colonia: 'SLP', kg: 0, money: 0 });
+        }
+      } catch(e) {
+        loginUser({ name: email, email: email, colonia: 'SLP', kg: 0, money: 0 });
+      }
+    })
     .catch(() => {
       document.getElementById('err-lpass').textContent = 'Correo o contraseña incorrectos';
       showErr('err-lpass');
@@ -2080,7 +2124,7 @@ function loginUser(user) {
   currentUser = user;
   closeModal();
   updateUI();
-  showToast('¡Bienvenido, ' + user.name.split(' ')[0] + '! 🌿');
+  showToast('¡Bienvenido, ' + (user.name || user.email).split(' ')[0] + '! 🌿');
 }
 
 function updateUI() {
@@ -2094,8 +2138,8 @@ function updateUI() {
   }
   document.getElementById('authBtns').style.display = 'none';
   document.getElementById('userPanel').classList.add('show');
-  document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
-  document.getElementById('userAvatar').textContent = currentUser.name[0].toUpperCase();
+  document.getElementById('userName').textContent = (currentUser.name || currentUser.email).split(' ')[0];
+  document.getElementById('userAvatar').textContent = (currentUser.name || currentUser.email)[0].toUpperCase();
   document.getElementById('loggedStats').style.display = 'flex';
   document.getElementById('guestStats').style.display = 'none';
   document.getElementById('guestHint').style.display = 'none';
@@ -2105,24 +2149,14 @@ function updateUI() {
 
 function refreshMyStats() {
   if (!currentUser) return;
-  document.getElementById('myKg').textContent = currentUser.kg.toFixed(1) + ' kg';
-  document.getElementById('myMoney').textContent = '$' + currentUser.money.toFixed(0) + ' MXN';
-  const trees = Math.floor(currentUser.kg / 30);
+  document.getElementById('myKg').textContent = (currentUser.kg || 0).toFixed(1) + ' kg';
+  document.getElementById('myMoney').textContent = '$' + (currentUser.money || 0).toFixed(0) + ' MXN';
+  const trees = Math.floor((currentUser.kg || 0) / 30);
   document.getElementById('myTrees').textContent = '🌳 ' + trees;
-  const allUsers = buildAllUsers();
-  const sorted = allUsers.sort((a,b) => b.kg - a.kg);
-  const pos = sorted.findIndex(u => u.email === currentUser.email) + 1;
-  document.getElementById('myRank').textContent = '#' + (pos || '—');
 }
 
-function buildAllUsers() {
-  const u = Object.values(users).map(u => ({...u}));
-  const result = [...demoRanking.map((d,i) => ({name:d.name,colonia:d.colonia,kg:d.kg,money:d.kg*3,emoji:d.emoji,demo:true})), ...u];
-  return result;
-}
-
-function addRecycling() {
-  // Si no hay usuario, redirigir a registro/login
+// ====== REGISTRAR RECICLAJE (FIX: guarda en Firebase) ======
+async function addRecycling() {
   if (!currentUser) {
     showToast('🔒 Crea una cuenta para registrar tu reciclaje');
     setTimeout(() => openModal('signup'), 600);
@@ -2131,17 +2165,29 @@ function addRecycling() {
   const kg = parseFloat(document.getElementById('kgInput').value);
   const rate = parseFloat(document.getElementById('matInput').value);
   if (!kg || kg <= 0) { showToast('⚠️ Ingresa los kilogramos'); return; }
-  currentUser.kg += kg;
-  currentUser.money += kg * rate;
+
+  currentUser.kg = (currentUser.kg || 0) + kg;
+  currentUser.money = (currentUser.money || 0) + kg * rate;
+
+  // Guardar en Firebase para que aparezca en ranking global
+  try {
+    if (window.firebaseUpdateKg) {
+      await window.firebaseUpdateKg(currentUser.email, currentUser.kg, currentUser.money);
+    }
+  } catch (e) {
+    console.error('Error guardando en Firebase:', e);
+    showToast('⚠️ Error al sincronizar con la base de datos');
+  }
+
   users[currentUser.email] = currentUser;
   localStorage.setItem('recyclaSLP_users', JSON.stringify(users));
   document.getElementById('kgInput').value = '';
   refreshMyStats();
-  renderRanking();
+  await renderRanking();
   showToast('✅ ¡' + kg + ' kg registrados! Ganaste $' + (kg * rate).toFixed(0) + ' estimados');
 }
 
-// ====== RANKING ======
+// ====== RANKING (FIX: visible sin login, top 10, botón eliminar para admin) ======
 const medals = ['🥇','🥈','🥉'];
 
 async function renderRanking() {
@@ -2152,15 +2198,10 @@ async function renderRanking() {
     console.warn('Firebase no disponible:', e);
   }
 
-  const all = [
-    ...demoRanking.map(d => ({
-      name: d.name, colonia: d.colonia, kg: d.kg,
-      money: d.kg * 3, emoji: d.emoji, demo: true
-    })),
-    ...firebaseUsers
-  ];
+  // Filtrar admin del ranking visible
+  const all = firebaseUsers.filter(u => u.email !== ADMIN_EMAIL);
 
-  const sorted = all.sort((a,b) => b.kg - a.kg).slice(0, 10);
+  const sorted = all.sort((a, b) => (b.kg || 0) - (a.kg || 0)).slice(0, 10);
   const list = document.getElementById('rankingList');
   list.innerHTML = '';
 
@@ -2172,6 +2213,10 @@ async function renderRanking() {
         <p style="color:rgba(255,255,255,0.4);font-size:.85rem">¡Sé el primer potosino verde en aparecer aquí!</p>
       </div>
     `;
+    // Actualizar posición en sidebar si hay usuario
+    if (currentUser) {
+      document.getElementById('myRank').textContent = '#1';
+    }
     return;
   }
 
@@ -2181,20 +2226,41 @@ async function renderRanking() {
     item.className = 'ranking-item';
     if (isMe) item.style.borderColor = 'rgba(82,183,136,0.4)';
     const posClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+
+    // Botón eliminar solo visible para admin
+    const deleteBtn = (isAdmin() && u.email && u.email !== ADMIN_EMAIL)
+      ? `<button onclick="deleteUserFromRanking('${u.email.replace(/'/g,"\\'")}','${(u.name||'?').replace(/'/g,"\\'")}')"
+           style="background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.4);color:#ff6b6b;
+                  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.85rem;
+                  margin-left:.5rem;transition:all .2s;flex-shrink:0"
+           onmouseover="this.style.background='rgba(220,38,38,.35)'"
+           onmouseout="this.style.background='rgba(220,38,38,.15)'"
+           title="Eliminar del ranking">🗑️</button>`
+      : '';
+
     item.innerHTML = `
       <div class="rank-pos ${posClass}">${i < 3 ? medals[i] : '#'+(i+1)}</div>
-      <div class="rank-avatar">${u.emoji || (u.name||'?')[0]}</div>
+      <div class="rank-avatar">${(u.name||'?')[0].toUpperCase()}</div>
       <div class="rank-info">
         <div class="rank-name">${u.name || 'Anónimo'}${isMe ? ' <span style="color:var(--verde-lima);font-size:.75rem">(tú)</span>' : ''}</div>
         <div class="rank-detail">${u.colonia || 'SLP'}</div>
       </div>
-      <div style="text-align:right">
-        <div class="rank-amount">$${(u.money || u.kg*3).toFixed(0)}</div>
-        <div class="rank-kg">${(u.kg||0).toFixed(1)} kg</div>
+      <div style="text-align:right;display:flex;align-items:center;gap:.25rem">
+        <div>
+          <div class="rank-amount">$${(u.money || (u.kg||0)*3).toFixed(0)}</div>
+          <div class="rank-kg">${(u.kg||0).toFixed(1)} kg</div>
+        </div>
+        ${deleteBtn}
       </div>
     `;
     list.appendChild(item);
   });
+
+  // Actualizar posición del usuario en sidebar
+  if (currentUser) {
+    const pos = sorted.findIndex(u => u.email === currentUser.email) + 1;
+    document.getElementById('myRank').textContent = pos > 0 ? '#' + pos : '#' + (sorted.length + 1);
+  }
 }
 
 // ====== UTILS ======
@@ -2204,8 +2270,8 @@ function clearErrors() { document.querySelectorAll('.error-msg').forEach(e => { 
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg.replace(/^[^a-zA-Z]*/, '');
-  t.querySelector('span:first-child').textContent = msg.match(/^[^\w]*/)?.[0]?.trim() || '🌿';
+  document.getElementById('toast-msg').textContent = msg.replace(/^[^a-zA-Z0-9¡¿]*/, '');
+  t.querySelector('span:first-child').textContent = msg.match(/^[^\w¡¿]*/)?.[0]?.trim() || '🌿';
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
@@ -2217,11 +2283,21 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ====== INIT ======
-renderRanking();
+// ====== INIT (FIX: esperar a Firebase antes de renderizar ranking) ======
+function waitAndRenderRanking() {
+  if (window.getAllUsers) {
+    renderRanking();
+  } else {
+    setTimeout(waitAndRenderRanking, 150);
+  }
+}
+waitAndRenderRanking();
 updateUI();
 </script>
-<!-- CHATBOT -->
+
+<!-- =====================================================
+     CHATBOT
+     ===================================================== -->
 <style>
 #chatBtn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9997;width:62px;height:62px;border-radius:50%;background:var(--verde);color:#fff;border:none;font-size:1.7rem;cursor:pointer;box-shadow:0 10px 30px rgba(45,106,79,.4);transition:transform .2s}
 #chatBtn:hover{transform:scale(1.08)}
@@ -2268,6 +2344,7 @@ updateUI();
   #chatTip{right:5.5rem;max-width:180px;font-size:.8rem;padding:.6rem .9rem}
 }
 </style>
+
 <div id="chatTip">
   <span>¿Dudas de reciclaje? <b>¡Pregúntame!</b> 🌱</span>
   <button id="chatTipClose" title="Cerrar">✕</button>
@@ -2281,6 +2358,7 @@ updateUI();
     <button id="chatSend" type="submit">➤</button>
   </form>
 </div>
+
 <script>
 (function(){
   const btn=document.getElementById('chatBtn'),box=document.getElementById('chatBox'),
@@ -2334,9 +2412,9 @@ updateUI();
     setTimeout(()=>{
       tip.classList.remove('show');
       btn.classList.remove('pulse');
-    },7400000);
+    }, 7000);
   }
-  setTimeout(showTip,7400000);
+  setTimeout(showTip, 4000);
   tipClose.onclick=(e)=>{
     e.stopPropagation();
     tip.classList.remove('show');
@@ -2353,5 +2431,6 @@ updateUI();
   };
 })();
 </script>
+
 </body>
 </html>
